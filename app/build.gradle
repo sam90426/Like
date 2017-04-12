@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.antfortune.freeline'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        applicationId "com.sam.like"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile files('src/main/java/com/sam/like/libs/xUtils-2.6.14.jar')
+    compile files('src/main/java/com/sam/like/libs/okhttp-3.5.0.jar')
+    compile files('src/main/java/com/sam/like/libs/okio-1.11.0.jar')
+    compile files('src/main/java/com/sam/like/libs/gson-2.5.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    compile 'cn.finalteam:galleryfinal:1.4.8.7'
+    compile 'com.android.support:percent:22.2.0'
+    testCompile 'junit:junit:4.12'
+    compile files('src/main/java/com/sam/like/libs/picasso-2.5.2.jar')
+}

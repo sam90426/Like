@@ -1,0 +1,108 @@
+{
+    "project_type": "gradle",
+    "android_gradle_plugin_version": "2.3.0",
+    "freeline_gradle_plugin_version": "0.8.6",
+    "java_home": "C:\\Program Files\\Java\\jdk1.8.0_73",
+    "freeline_cache_dir": "F:\\Web\\Like\\android\\Like",
+    "auto_dependency": true,
+    "product_flavor": "",
+    "build_script": "gradlew.bat :app:assembleDebug",
+    "build_script_work_directory": "",
+    "root_dir": "F:\\Web\\Like\\android\\Like",
+    "main_project_name": "app",
+    "main_project_dir": "app",
+    "build_directory": "F:\\Web\\Like\\android\\Like\\app\\build",
+    "build_cache_dir": "F:\\Web\\Like\\android\\Like\\app\\build\\freeline",
+    "build_tools_version": "25.0.0",
+    "sdk_directory": "D:\\Android\\sdk",
+    "build_tools_directory": "D:\\Android\\sdk\\build-tools\\25.0.0",
+    "compile_sdk_version": "android-23",
+    "compile_sdk_directory": "D:\\Android\\sdk\\platforms\\android-23",
+    "package": "com.sam.like",
+    "debug_package": "com.sam.like",
+    "main_manifest_path": "F:\\Web\\Like\\android\\Like\\app\\src\\main\\AndroidManifest.xml",
+    "launcher": "com.sam.like.MainActivity",
+    "apk_path": "F:\\Web\\Like\\android\\Like\\app\\build\\outputs\\apk\\app-debug.apk",
+    "extra_dep_res_paths": [
+        
+    ],
+    "exclude_dep_res_paths": [
+        
+    ],
+    "main_r_path": "F:\\Web\\Like\\android\\Like\\app\\build\\generated\\source\\r\\debug\\R.java",
+    "use_jdk8": true,
+    "ignore_resource_ids": [
+        "avd_hide_password_1",
+        "avd_hide_password_2",
+        "avd_hide_password_3",
+        "avd_show_password_1",
+        "avd_show_password_2",
+        "avd_show_password_3"
+    ],
+    "use_system_gradle": false,
+    "check_sources_md5": [
+        
+    ],
+    "main_src_directory": [
+        "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\java",
+        "F:\\Web\\Like\\android\\Like\\app\\src\\main\\java"
+    ],
+    "main_res_directory": [
+        "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\res",
+        "F:\\Web\\Like\\android\\Like\\app\\src\\main\\res"
+    ],
+    "main_assets_directory": [
+        "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\assets",
+        "F:\\Web\\Like\\android\\Like\\app\\src\\main\\assets"
+    ],
+    "main_jni_directory": [
+        "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\jni",
+        "F:\\Web\\Like\\android\\Like\\app\\src\\main\\jni"
+    ],
+    "main_jniLibs_directory": [
+        "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\jniLibs",
+        "F:\\Web\\Like\\android\\Like\\app\\src\\main\\jniLibs"
+    ],
+    "project_source_sets": {
+        "app": {
+            "main_src_directory": [
+                "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\java",
+                "F:\\Web\\Like\\android\\Like\\app\\src\\main\\java"
+            ],
+            "main_res_directory": [
+                "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\res",
+                "F:\\Web\\Like\\android\\Like\\app\\src\\main\\res"
+            ],
+            "main_assets_directory": [
+                "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\assets",
+                "F:\\Web\\Like\\android\\Like\\app\\src\\main\\assets"
+            ],
+            "main_jni_directory": [
+                "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\jni",
+                "F:\\Web\\Like\\android\\Like\\app\\src\\main\\jni"
+            ],
+            "main_jniLibs_directory": [
+                "F:\\Web\\Like\\android\\Like\\app\\src\\debug\\jniLibs",
+                "F:\\Web\\Like\\android\\Like\\app\\src\\main\\jniLibs"
+            ],
+            "main_manifest_path": "F:\\Web\\Like\\android\\Like\\app\\src\\main\\AndroidManifest.xml"
+        }
+    },
+    "modules": [
+        {
+            "name": "app",
+            "path": "F:\\Web\\Like\\android\\Like\\app"
+        }
+    ],
+    "module_dependencies": {
+        "app": [
+            
+        ]
+    },
+    "databinding": [
+        
+    ],
+    "databinding_modules": [
+        
+    ]
+}

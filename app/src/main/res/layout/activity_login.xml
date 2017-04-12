@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="40dp"
+    android:gravity="center_vertical"
+    tools:context="com.sam.like.View.Account.LoginActivity">
+
+    <EditText
+        android:id="@+id/Login_loginname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:maxLength="11"
+        android:inputType="number"
+        android:paddingLeft="10dp"
+        android:background="@drawable/border_radius"
+        android:hint="请输入账号"/>
+
+    <EditText
+        android:id="@+id/Login_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:background="@drawable/border_radius"
+        android:hint="请输入密码"/>
+
+    <Button
+        android:id="@+id/Login_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/border_radius"
+        android:textSize="18sp"
+        android:text="登   录"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/Login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_marginRight="40dp"
+            android:textStyle="bold"
+            android:text="注册"/>
+
+        <TextView
+            android:id="@+id/Login_findpwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:padding="5dp"
+            android:textStyle="bold"
+            android:text="找回" />
+    </LinearLayout>
+
+</LinearLayout>

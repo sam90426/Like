@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_gallery"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context="com.sam.like.View.Friend.GalleryActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#000000"
+        android:padding="2dip">
+
+        <com.sam.like.View.Friend.myGallery
+            android:id="@+id/mygallery"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:spacing="16dp" />
+    </RelativeLayout>
+</LinearLayout>
