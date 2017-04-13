@@ -2,6 +2,12 @@ package com.sam.like.Common.AutoListView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +57,6 @@ public class CircleAdapter extends BaseAdapter {
     private CirCleGridViewAdapter adapter;
     private List<String> CommentList;
     private List<String> ZanList;
-    private CircleZanAdapter zanAdapter;
     private EditText commentEdit;
 
     public CircleAdapter(Context context, List<String> list, EditText commentedit) {
@@ -90,13 +95,12 @@ public class CircleAdapter extends BaseAdapter {
             holder.logo = (ImageView) convertView.findViewById(R.id.circleitem_logo);
             holder.mgridview = (SodukuGridView) convertView.findViewById(R.id.circle_item_gridview);
             holder.commentlist = (ListView) convertView.findViewById(R.id.circle_comment_list);
-            holder.zanusernamegrid = (SodukuGridView) convertView.findViewById(R.id.circle_item_zanlist);
             holder.commentbtn = (ImageButton) convertView.findViewById(R.id.circleitem_comment);
+            holder.zantext=(TextView) convertView.findViewById(R.id.zantext);
             //endregion
 
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -121,8 +125,7 @@ public class CircleAdapter extends BaseAdapter {
             //region 关注按钮显示隐藏 1=已关注 2=未关注
             if (dataJson.getInt("Sex") == 2) {
                 holder.carebtn.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 holder.carebtn.setVisibility(View.GONE);
             }
             //endregion
@@ -130,8 +133,7 @@ public class CircleAdapter extends BaseAdapter {
             //region 点赞 1=已点赞 2=未点赞
             if (ZanCount == 1) {
                 holder.zanbtn.setImageResource(R.mipmap.good);
-            }
-            else {
+            } else {
                 holder.zanbtn.setImageResource(R.mipmap.ungood);
             }
             //endregion
@@ -140,8 +142,7 @@ public class CircleAdapter extends BaseAdapter {
             int size = ScreenUtils.getScreenWidth(context) / 6;
             if (!Logo.isEmpty()) {
                 Picasso.with(context).load(InterfaceUrl.interfaceurl + Logo).resize(size, size).error(R.mipmap.ic_launcher).into(holder.logo);
-            }
-            else {
+            } else {
                 Picasso.with(context).load(R.mipmap.ic_launcher).resize(size, size).into(holder.logo);
             }
             L.i("Logo:::::", size + "");
@@ -161,8 +162,7 @@ public class CircleAdapter extends BaseAdapter {
                             if (ResultHelp.GetResult(context, response)) {
                                 try {
                                     T.showShort(context, response.getString("message"));
-                                }
-                                catch (JSONException e) {
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
@@ -185,8 +185,7 @@ public class CircleAdapter extends BaseAdapter {
                     int newcount = 0;
                     if (ZanCount == 1) {
                         url = InterfaceUrl.CancelCircleZanInterface;
-                    }
-                    else {
+                    } else {
                         url = InterfaceUrl.CircleZanInterface;
                         newcount = 1;
                     }
@@ -195,26 +194,29 @@ public class CircleAdapter extends BaseAdapter {
                     params.put("circleID", circleID);
                     MyOkHttp myOkHttp = new MyOkHttp();
                     final int finalNewcount = newcount;
-                    myOkHttp.post().url(url).params(MD5.getMD5(params)).tag(context).enqueue(new JsonResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, JSONObject response) {
-                            if (ResultHelp.GetResult(context, response)) {
-                                try {
-                                    JSONObject newresult = new JSONObject(list.get(position));
-                                    list.set(position, newresult.put("ZanCount", finalNewcount).toString());
-                                    notifyDataSetChanged();
+                    myOkHttp.post()
+                            .url(url)
+                            .params(MD5.getMD5(params))
+                            .tag(context)
+                            .enqueue(new JsonResponseHandler() {
+                                @Override
+                                public void onSuccess(int statusCode, JSONObject response) {
+                                    if (ResultHelp.GetResult(context, response)) {
+                                        try {
+                                            JSONObject newresult = new JSONObject(list.get(position));
+                                            list.set(position, newresult.put("ZanCount", finalNewcount).toString());
+                                            notifyDataSetChanged();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
                                 }
-                                catch (JSONException e) {
-                                    e.printStackTrace();
+
+                                @Override
+                                public void onFailure(int statusCode, String error_msg) {
+
                                 }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, String error_msg) {
-
-                        }
-                    });
+                            });
                 }
             });
             //endregion
@@ -263,17 +265,11 @@ public class CircleAdapter extends BaseAdapter {
             //endregion
 
             //region 点赞列表
-            holder.zanusernamegrid.setVisibility(View.GONE);
             if (!dataJson.isNull("ZanList")) {
                 JSONArray zanlist = dataJson.getJSONArray("ZanList");
-                ZanList = new ArrayList<String>();
                 if (zanlist.length() > 0) {
-                    for (int i = 0; i < zanlist.length(); i++) {
-                        ZanList.add(zanlist.get(i).toString());
-                    }
-                    holder.zanusernamegrid.setVisibility(View.VISIBLE);
-                    zanAdapter = new CircleZanAdapter(context, ZanList);
-                    holder.zanusernamegrid.setAdapter(zanAdapter);
+                    holder.zantext.setMovementMethod(LinkMovementMethod.getInstance());
+                    holder.zantext.setText(addClickPart(zanlist), TextView.BufferType.SPANNABLE);
                 }
             }
             //endregion
@@ -308,8 +304,7 @@ public class CircleAdapter extends BaseAdapter {
 
                         commentEdit.setVisibility(View.VISIBLE);
                         commentEdit.setHint("回复" + commentdate.get("UserName").toString());
-                    }
-                    catch (JSONException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -325,8 +320,7 @@ public class CircleAdapter extends BaseAdapter {
                         final String commentstr = commentEdit.getText().toString();
                         if (commentstr.isEmpty()) {
                             T.showLong(MyApplication.getInstance(), "请输入评论内容");
-                        }
-                        else {
+                        } else {
                             MyOkHttp myOkHttp = new MyOkHttp();
                             LinkedHashMap<String, String> params = new LinkedHashMap<>();
                             params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
@@ -349,8 +343,7 @@ public class CircleAdapter extends BaseAdapter {
                                                 try {
                                                     JSONArray result = response.getJSONArray("result");
                                                     commentdate = result.getString(0);
-                                                }
-                                                catch (JSONException e) {
+                                                } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
                                                 holder.commentadapter.addItem(commentdate);
@@ -374,8 +367,7 @@ public class CircleAdapter extends BaseAdapter {
             });
             //endregion
 
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         //endregion
@@ -391,8 +383,8 @@ public class CircleAdapter extends BaseAdapter {
         private ImageView logo;
         private SodukuGridView mgridview;
         private ListView commentlist;
-        private SodukuGridView zanusernamegrid;
         private CircleCommentAdapter commentadapter;
+        private TextView zantext;
     }
 
     //region 计算listview高度
@@ -420,4 +412,47 @@ public class CircleAdapter extends BaseAdapter {
         listView.setLayoutParams(params);
     }
     //endregion
+
+    private SpannableStringBuilder addClickPart(JSONArray list) {
+        SpannableString spanStr = new SpannableString("p.");
+        String str="",userid="";
+        for (int i=0;i<list.length();i++) {
+            try {
+                str+="、,"+list.getJSONObject(i).getString("UserName");
+                userid+=","+list.getJSONObject(i).getString("UserID");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        str=str.substring(2);
+        userid=userid.substring(1);
+        //创建一个SpannableStringBuilder对象，连接多个字符串
+        SpannableStringBuilder ssb = new SpannableStringBuilder(spanStr);
+
+        ssb.append(str);
+        String[] likeUsers = str.split(",");
+        String[] likeUserIDs = userid.split(",");
+        if (likeUsers.length > 0) {
+            for (int i = 0; i < likeUsers.length; i++) {
+                final String name = likeUsers[i];
+                final String userID=likeUserIDs[i];
+                final int start = str.indexOf(name) + spanStr.length();
+                ssb.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        T.showLong(MyApplication.getInstance(),name+"--"+userID);
+                    }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        super.updateDrawState(ds);
+                        //删除下划线，设置字体颜色为蓝色
+                        ds.setColor(Color.BLUE);
+                        ds.setUnderlineText(false);
+                    }
+                },start,start + name.length(),0);
+            }
+        }
+        return ssb;
+    }
 }
