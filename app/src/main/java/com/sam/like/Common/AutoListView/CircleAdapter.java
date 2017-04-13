@@ -413,6 +413,7 @@ public class CircleAdapter extends BaseAdapter {
     }
     //endregion
 
+    //region 点赞人员列表处理
     private SpannableStringBuilder addClickPart(JSONArray list) {
         SpannableString spanStr = new SpannableString("p.");
         String str="",userid="";
@@ -455,4 +456,5 @@ public class CircleAdapter extends BaseAdapter {
         }
         return ssb;
     }
+    //endregion
 }
