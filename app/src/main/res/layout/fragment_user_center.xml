@@ -69,7 +69,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/friendsmg" />
+                    android:src="@drawable/friendsmg" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -84,7 +84,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/more" />
+                    android:src="@drawable/more" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,7 +100,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/account" />
+                    android:src="@drawable/account" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/more" />
+                    android:src="@drawable/more" />
             </LinearLayout>
 
             <LinearLayout
@@ -131,7 +131,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/userinfo" />
+                    android:src="@drawable/userinfo" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -146,7 +146,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/more" />
+                    android:src="@drawable/more" />
             </LinearLayout>
 
             <LinearLayout
@@ -162,7 +162,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/set" />
+                    android:src="@drawable/set" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -178,7 +178,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/more" />
+                    android:src="@drawable/more" />
             </LinearLayout>
 
             <LinearLayout
@@ -194,7 +194,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/aboutus" />
+                    android:src="@drawable/aboutus" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -209,7 +209,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:padding="20dp"
-                    android:src="@mipmap/more" />
+                    android:src="@drawable/more" />
             </LinearLayout>
 
 

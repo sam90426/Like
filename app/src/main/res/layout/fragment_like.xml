@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:padding="5dp"
                 android:layout_alignParentRight="true"
-                android:src="@mipmap/add" />
+                android:src="@drawable/add" />
         </RelativeLayout>
 
         <LinearLayout

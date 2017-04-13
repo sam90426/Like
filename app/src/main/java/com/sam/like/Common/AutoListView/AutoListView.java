@@ -352,7 +352,7 @@ public class AutoListView extends ListView implements OnScrollListener {
 			tip.setText(R.string.pull_to_refresh);
 			refreshing.setVisibility(View.GONE);
 			arrow.clearAnimation();
-			arrow.setImageResource(R.mipmap.pull_to_refresh_arrow);
+			arrow.setImageResource(R.drawable.pull_to_refresh_arrow);
 			break;
 		case PULL:
 			arrow.setVisibility(View.VISIBLE);

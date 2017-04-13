@@ -43,13 +43,13 @@
             android:layout_marginRight="20dp"
             android:layout_toLeftOf="@id/layout"
             android:contentDescription="@string/d"
-            android:src="@mipmap/pull_to_refresh_arrow" />
+            android:src="@drawable/pull_to_refresh_arrow" />
     </RelativeLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@mipmap/h_line"
+        android:background="@drawable/h_line"
         android:contentDescription="@string/d" />
 
 </LinearLayout>

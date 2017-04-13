@@ -132,9 +132,9 @@ public class CircleAdapter extends BaseAdapter {
 
             //region 点赞 1=已点赞 2=未点赞
             if (ZanCount == 1) {
-                holder.zanbtn.setImageResource(R.mipmap.good);
+                holder.zanbtn.setImageResource(R.drawable.good);
             } else {
-                holder.zanbtn.setImageResource(R.mipmap.ungood);
+                holder.zanbtn.setImageResource(R.drawable.ungood);
             }
             //endregion
 
@@ -435,7 +435,9 @@ public class CircleAdapter extends BaseAdapter {
         String[] likeUserIDs = userid.split(",");
         if (likeUsers.length > 0) {
             for (int i = 0; i < likeUsers.length; i++) {
+                //用户姓名
                 final String name = likeUsers[i];
+                //用户ID
                 final String userID=likeUserIDs[i];
                 final int start = str.indexOf(name) + spanStr.length();
                 ssb.setSpan(new ClickableSpan() {
