@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -40,8 +39,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by wuxianxin on 2017/1/16.
@@ -98,7 +95,8 @@ public class CircleAdapter extends BaseAdapter {
             //endregion
 
             convertView.setTag(holder);
-        } else {
+        }
+        else {
             holder = (ViewHolder) convertView.getTag();
         }
 
@@ -123,7 +121,8 @@ public class CircleAdapter extends BaseAdapter {
             //region 关注按钮显示隐藏 1=已关注 2=未关注
             if (dataJson.getInt("Sex") == 2) {
                 holder.carebtn.setVisibility(View.VISIBLE);
-            } else {
+            }
+            else {
                 holder.carebtn.setVisibility(View.GONE);
             }
             //endregion
@@ -131,7 +130,8 @@ public class CircleAdapter extends BaseAdapter {
             //region 点赞 1=已点赞 2=未点赞
             if (ZanCount == 1) {
                 holder.zanbtn.setImageResource(R.mipmap.good);
-            } else {
+            }
+            else {
                 holder.zanbtn.setImageResource(R.mipmap.ungood);
             }
             //endregion
@@ -140,7 +140,8 @@ public class CircleAdapter extends BaseAdapter {
             int size = ScreenUtils.getScreenWidth(context) / 6;
             if (!Logo.isEmpty()) {
                 Picasso.with(context).load(InterfaceUrl.interfaceurl + Logo).resize(size, size).error(R.mipmap.ic_launcher).into(holder.logo);
-            } else {
+            }
+            else {
                 Picasso.with(context).load(R.mipmap.ic_launcher).resize(size, size).into(holder.logo);
             }
             L.i("Logo:::::", size + "");
@@ -157,12 +158,14 @@ public class CircleAdapter extends BaseAdapter {
                     myOkHttp.post().url(InterfaceUrl.ApplyFriendInterface).params(MD5.getMD5(params)).tag(context).enqueue(new JsonResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, JSONObject response) {
-                            if (ResultHelp.GetResult(context, response))
+                            if (ResultHelp.GetResult(context, response)) {
                                 try {
                                     T.showShort(context, response.getString("message"));
-                                } catch (JSONException e) {
+                                }
+                                catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                            }
                         }
 
                         @Override
@@ -182,7 +185,8 @@ public class CircleAdapter extends BaseAdapter {
                     int newcount = 0;
                     if (ZanCount == 1) {
                         url = InterfaceUrl.CancelCircleZanInterface;
-                    } else {
+                    }
+                    else {
                         url = InterfaceUrl.CircleZanInterface;
                         newcount = 1;
                     }
@@ -194,14 +198,16 @@ public class CircleAdapter extends BaseAdapter {
                     myOkHttp.post().url(url).params(MD5.getMD5(params)).tag(context).enqueue(new JsonResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, JSONObject response) {
-                            if (ResultHelp.GetResult(context, response))
+                            if (ResultHelp.GetResult(context, response)) {
                                 try {
                                     JSONObject newresult = new JSONObject(list.get(position));
                                     list.set(position, newresult.put("ZanCount", finalNewcount).toString());
                                     notifyDataSetChanged();
-                                } catch (JSONException e) {
+                                }
+                                catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                            }
                         }
 
                         @Override
@@ -302,7 +308,8 @@ public class CircleAdapter extends BaseAdapter {
 
                         commentEdit.setVisibility(View.VISIBLE);
                         commentEdit.setHint("回复" + commentdate.get("UserName").toString());
-                    } catch (JSONException e) {
+                    }
+                    catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
@@ -318,7 +325,8 @@ public class CircleAdapter extends BaseAdapter {
                         final String commentstr = commentEdit.getText().toString();
                         if (commentstr.isEmpty()) {
                             T.showLong(MyApplication.getInstance(), "请输入评论内容");
-                        } else {
+                        }
+                        else {
                             MyOkHttp myOkHttp = new MyOkHttp();
                             LinkedHashMap<String, String> params = new LinkedHashMap<>();
                             params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
@@ -337,11 +345,12 @@ public class CircleAdapter extends BaseAdapter {
                                                 commentEdit.setVisibility(View.GONE);
                                                 KeyBoardUtils.closeKeybord(commentEdit, MyApplication.getInstance());
                                                 //region 插入数据
-                                                String commentdate="";
+                                                String commentdate = "";
                                                 try {
-                                                    JSONArray result=response.getJSONArray("result");
-                                                    commentdate=result.getString(0);
-                                                } catch (JSONException e) {
+                                                    JSONArray result = response.getJSONArray("result");
+                                                    commentdate = result.getString(0);
+                                                }
+                                                catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
                                                 holder.commentadapter.addItem(commentdate);
@@ -357,7 +366,6 @@ public class CircleAdapter extends BaseAdapter {
 
                                         }
                                     });
-
                         }
                         return true;
                     }
@@ -366,7 +374,8 @@ public class CircleAdapter extends BaseAdapter {
             });
             //endregion
 
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
         //endregion
@@ -374,16 +383,16 @@ public class CircleAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        TextView usernametext;
-        TextView circlecontenttext;
-        Button carebtn;
-        ImageButton zanbtn;
-        ImageButton commentbtn;
-        ImageView logo;
-        SodukuGridView mgridview;
-        ListView commentlist;
-        SodukuGridView zanusernamegrid;
-        CircleCommentAdapter commentadapter;
+        private TextView usernametext;
+        private TextView circlecontenttext;
+        private Button carebtn;
+        private ImageButton zanbtn;
+        private ImageButton commentbtn;
+        private ImageView logo;
+        private SodukuGridView mgridview;
+        private ListView commentlist;
+        private SodukuGridView zanusernamegrid;
+        private CircleCommentAdapter commentadapter;
     }
 
     //region 计算listview高度

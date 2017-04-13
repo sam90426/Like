@@ -28,10 +28,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.Account.LoginActivity" />
-        <activity android:name=".View.Index.IndexActivity" />
         <activity android:name=".View.Account.RegisterActivity" />
         <activity android:name=".View.Account.FindPwdActivity" />
-        <activity android:name=".View.MyFragment"
+        <activity
+            android:name=".View.MyFragment"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".View.UserCenter.FriendsManage" />
         <activity android:name=".View.UserCenter.AccountManage" />

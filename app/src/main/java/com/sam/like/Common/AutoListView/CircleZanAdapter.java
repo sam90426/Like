@@ -24,7 +24,7 @@ public class CircleZanAdapter extends BaseAdapter {
 
     private Context context;
     private List<String> list;
-    LayoutInflater layoutInflater;
+    private LayoutInflater layoutInflater;
     private ImageView mImageView;
     private int mPos;
 
@@ -60,7 +60,8 @@ public class CircleZanAdapter extends BaseAdapter {
             datajson = new JSONObject(str);
             zanusername = datajson.getString("UserName");
             L.i("ZANUSERNAME::::", zanusername);
-        } catch (JSONException e) {
+        }
+        catch (JSONException e) {
             e.printStackTrace();
         }
         zanuser.setText(zanusername);
