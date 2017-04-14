@@ -283,6 +283,7 @@ public class CircleAdapter extends BaseAdapter {
             //endregion
 
             //region 点赞列表
+            holder.zantext.setText("");
             if (!dataJson.isNull("ZanList")) {
                 JSONArray zanlist = dataJson.getJSONArray("ZanList");
                 if (zanlist.length() > 0) {
