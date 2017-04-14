@@ -177,7 +177,7 @@ public class CircleAdapter extends BaseAdapter {
             });
             //endregion
 
-            //region 点赞按钮监听事件???????
+            //region 点赞按钮监听事件
             holder.zanbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -204,7 +204,25 @@ public class CircleAdapter extends BaseAdapter {
                                     if (ResultHelp.GetResult(context, response)) {
                                         try {
                                             JSONObject newresult = new JSONObject(list.get(position));
-                                            list.set(position, newresult.put("ZanCount", finalNewcount).toString());
+                                            JSONArray zanarray=newresult.getJSONArray("ZanList");
+                                            JSONArray newzanarray=new JSONArray();
+                                            String userid=SharedPreferencesUtils.getParam(MyApplication.getInstance(),"UserID","").toString();
+                                            if(ZanCount==1){
+                                                if(zanarray.length()>0){
+                                                    for(int i=0;i<zanarray.length();i++){
+                                                        if(!userid.equals(zanarray.getJSONObject(i).getString("UserID"))){
+                                                            newzanarray.put(zanarray.getJSONObject(i));
+                                                        }
+                                                    }
+                                                }
+                                            }else{
+                                                newzanarray=zanarray;
+                                                JSONObject json=new JSONObject();
+                                                json.put("UserID",userid);
+                                                json.put("UserName",SharedPreferencesUtils.getParam(MyApplication.getInstance(),"UserName",""));
+                                                newzanarray.put(json);
+                                            }
+                                            list.set(position, newresult.put("ZanCount", finalNewcount).put("ZanList",newzanarray).toString());
                                             notifyDataSetChanged();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
