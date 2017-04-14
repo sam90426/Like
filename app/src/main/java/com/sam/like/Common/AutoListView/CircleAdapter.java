@@ -434,17 +434,17 @@ public class CircleAdapter extends BaseAdapter {
 
     //region 点赞人员列表处理
     private SpannableStringBuilder addClickPart(JSONArray list) {
-        SpannableString spanStr = new SpannableString("p.");
+        SpannableString spanStr = new SpannableString("");
         String str="",userid="";
         for (int i=0;i<list.length();i++) {
             try {
-                str+="、,"+list.getJSONObject(i).getString("UserName");
+                str+=","+list.getJSONObject(i).getString("UserName");
                 userid+=","+list.getJSONObject(i).getString("UserID");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        str=str.substring(2);
+        str=str.substring(1);
         userid=userid.substring(1);
         //创建一个SpannableStringBuilder对象，连接多个字符串
         SpannableStringBuilder ssb = new SpannableStringBuilder(spanStr);
