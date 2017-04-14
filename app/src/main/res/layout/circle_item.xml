@@ -12,16 +12,22 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
+        <com.sam.like.Common.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/circleitem_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp" />
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_launcher"
+            app:civ_border_color="#66CDAA"
+            app:civ_border_width="1dp" />
 
         <Button
             android:id="@+id/circleitem_care"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:text="+关注"
             android:visibility="invisible" />
     </LinearLayout>
@@ -36,14 +42,18 @@
             android:id="@+id/circleitem_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textColor="#000000" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#6A5ACD"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/circleitem_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="#000000" />
 
         <com.sam.like.Common.SodukuGridView
@@ -51,7 +61,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="5dp"
             android:columnWidth="90dp"
@@ -59,57 +68,53 @@
             android:horizontalSpacing="10dp"
             android:numColumns="2"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp">
-        </com.sam.like.Common.SodukuGridView>
+            android:verticalSpacing="10dp"></com.sam.like.Common.SodukuGridView>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="标签"
-                android:textColor="#000000" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:orientation="horizontal">
+
+
 
                 <ImageButton
                     android:id="@+id/circleitem_zan"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
                     android:scaleType="centerInside"
+                    android:layout_marginRight="8dp"
                     android:src="@drawable/ungood" />
 
                 <ImageButton
                     android:id="@+id/circleitem_comment"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
+                    android:layout_width="20dp"
+                    android:layout_height="15dp"
                     android:layout_weight="1"
                     android:background="#00000000"
+                    android:layout_marginRight="8dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/comments" />
-            </LinearLayout>
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/zantext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp" />
 
         <ListView
             android:id="@+id/circle_comment_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="5dp">
 
         </ListView>
     </LinearLayout>
