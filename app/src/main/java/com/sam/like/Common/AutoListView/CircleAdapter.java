@@ -314,7 +314,7 @@ public class CircleAdapter extends BaseAdapter {
                     for (int i = 0; i < commenlist.length(); i++) {
                         CommentList.add(commenlist.get(i).toString());
                     }
-                }else{
+                } else {
                     holder.zancommnetline.setVisibility(View.GONE);
                 }
             }
@@ -466,7 +466,6 @@ public class CircleAdapter extends BaseAdapter {
         }
         str = str.substring(1);
         userid = userid.substring(1);
-        //创建一个SpannableStringBuilder对象，连接多个字符串
         SpannableStringBuilder ssb = new SpannableStringBuilder(spanStr);
 
         ssb.append(str);
