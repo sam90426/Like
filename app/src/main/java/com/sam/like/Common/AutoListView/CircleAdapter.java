@@ -3,11 +3,13 @@ package com.sam.like.Common.AutoListView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ImageSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -96,7 +99,9 @@ public class CircleAdapter extends BaseAdapter {
             holder.mgridview = (SodukuGridView) convertView.findViewById(R.id.circle_item_gridview);
             holder.commentlist = (ListView) convertView.findViewById(R.id.circle_comment_list);
             holder.commentbtn = (ImageButton) convertView.findViewById(R.id.circleitem_comment);
-            holder.zantext=(TextView) convertView.findViewById(R.id.zantext);
+            holder.zantext = (TextView) convertView.findViewById(R.id.zantext);
+            holder.zancomment = (LinearLayout) convertView.findViewById(R.id.circle_item_zancomment);
+            holder.zancommnetline = convertView.findViewById(R.id.circle_item_line);
             //endregion
 
             convertView.setTag(holder);
@@ -204,25 +209,25 @@ public class CircleAdapter extends BaseAdapter {
                                     if (ResultHelp.GetResult(context, response)) {
                                         try {
                                             JSONObject newresult = new JSONObject(list.get(position));
-                                            JSONArray zanarray=newresult.getJSONArray("ZanList");
-                                            JSONArray newzanarray=new JSONArray();
-                                            String userid=SharedPreferencesUtils.getParam(MyApplication.getInstance(),"UserID","").toString();
-                                            if(ZanCount==1){
-                                                if(zanarray.length()>0){
-                                                    for(int i=0;i<zanarray.length();i++){
-                                                        if(!userid.equals(zanarray.getJSONObject(i).getString("UserID"))){
+                                            JSONArray zanarray = newresult.getJSONArray("ZanList");
+                                            JSONArray newzanarray = new JSONArray();
+                                            String userid = SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", "").toString();
+                                            if (ZanCount == 1) {
+                                                if (zanarray.length() > 0) {
+                                                    for (int i = 0; i < zanarray.length(); i++) {
+                                                        if (!userid.equals(zanarray.getJSONObject(i).getString("UserID"))) {
                                                             newzanarray.put(zanarray.getJSONObject(i));
                                                         }
                                                     }
                                                 }
-                                            }else{
-                                                newzanarray=zanarray;
-                                                JSONObject json=new JSONObject();
-                                                json.put("UserID",userid);
-                                                json.put("UserName",SharedPreferencesUtils.getParam(MyApplication.getInstance(),"UserName",""));
+                                            } else {
+                                                newzanarray = zanarray;
+                                                JSONObject json = new JSONObject();
+                                                json.put("UserID", userid);
+                                                json.put("UserName", SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserName", ""));
                                                 newzanarray.put(json);
                                             }
-                                            list.set(position, newresult.put("ZanCount", finalNewcount).put("ZanList",newzanarray).toString());
+                                            list.set(position, newresult.put("ZanCount", finalNewcount).put("ZanList", newzanarray).toString());
                                             notifyDataSetChanged();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -245,7 +250,7 @@ public class CircleAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     MyApplication.commentcircleID = circleID;
                     MyApplication.commentreplyuserID = "";
-
+                    MyApplication.checkposition = position;
                     commentEdit.setVisibility(View.VISIBLE);
                     commentEdit.setHint("评论");
 
@@ -283,10 +288,16 @@ public class CircleAdapter extends BaseAdapter {
             //endregion
 
             //region 点赞列表
-            holder.zantext.setText("");
+            holder.zantext.setVisibility(View.GONE);
+            holder.zancommnetline.setVisibility(View.GONE);
+            holder.zancomment.setVisibility(View.GONE);
             if (!dataJson.isNull("ZanList")) {
                 JSONArray zanlist = dataJson.getJSONArray("ZanList");
                 if (zanlist.length() > 0) {
+                    holder.zantext.setVisibility(View.VISIBLE);
+                    holder.zancommnetline.setVisibility(View.VISIBLE);
+                    holder.zancomment.setVisibility(View.VISIBLE);
+                    holder.zantext.setText("");
                     holder.zantext.setMovementMethod(LinkMovementMethod.getInstance());
                     holder.zantext.setText(addClickPart(zanlist), TextView.BufferType.SPANNABLE);
                 }
@@ -299,9 +310,12 @@ public class CircleAdapter extends BaseAdapter {
             if (!dataJson.isNull("CommentList")) {
                 JSONArray commenlist = dataJson.getJSONArray("CommentList");
                 if (commenlist.length() > 0) {
+                    holder.zancomment.setVisibility(View.VISIBLE);
                     for (int i = 0; i < commenlist.length(); i++) {
                         CommentList.add(commenlist.get(i).toString());
                     }
+                }else{
+                    holder.zancommnetline.setVisibility(View.GONE);
                 }
             }
             holder.commentlist.setVisibility(View.VISIBLE);
@@ -320,7 +334,6 @@ public class CircleAdapter extends BaseAdapter {
                         JSONObject commentdate = commenlist.getJSONObject(position);
                         MyApplication.commentcircleID = circleID;
                         MyApplication.commentreplyuserID = commentdate.get("UserID").toString();
-
                         commentEdit.setVisibility(View.VISIBLE);
                         commentEdit.setHint("回复" + commentdate.get("UserName").toString());
                     } catch (JSONException e) {
@@ -330,7 +343,7 @@ public class CircleAdapter extends BaseAdapter {
             });
             //endregion
 
-            //region 评论发送????????
+            //region 评论发送
             commentEdit.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -356,19 +369,21 @@ public class CircleAdapter extends BaseAdapter {
                                             if (ResultHelp.GetResult(MyApplication.getInstance(), response)) {
                                                 commentEdit.setText("");
                                                 commentEdit.setVisibility(View.GONE);
+
                                                 KeyBoardUtils.closeKeybord(commentEdit, MyApplication.getInstance());
                                                 //region 插入数据
                                                 String commentdate = "";
                                                 try {
+                                                    int newposition = MyApplication.checkposition;
+                                                    JSONObject newresult = new JSONObject(list.get(newposition));
+                                                    JSONArray commentarray = newresult.getJSONArray("CommentList");
                                                     JSONArray result = response.getJSONArray("result");
-                                                    commentdate = result.getString(0);
+                                                    commentarray = commentarray.put(result.getJSONObject(0));
+                                                    list.set(newposition, newresult.put("CommentList", commentarray).toString());
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
-                                                holder.commentadapter.addItem(commentdate);
-                                                //endregion
-                                                //更新adpater
-                                                holder.commentadapter.notifyDataSetChanged();
+                                                notifyDataSetChanged();
                                                 T.showLong(MyApplication.getInstance(), "评论成功");
                                             }
                                         }
@@ -404,6 +419,8 @@ public class CircleAdapter extends BaseAdapter {
         private ListView commentlist;
         private CircleCommentAdapter commentadapter;
         private TextView zantext;
+        private LinearLayout zancomment;
+        private View zancommnetline;
     }
 
     //region 计算listview高度
@@ -434,18 +451,21 @@ public class CircleAdapter extends BaseAdapter {
 
     //region 点赞人员列表处理
     private SpannableStringBuilder addClickPart(JSONArray list) {
-        SpannableString spanStr = new SpannableString("");
-        String str="",userid="";
-        for (int i=0;i<list.length();i++) {
+
+        ImageSpan imgspan = new ImageSpan(MyApplication.getInstance(), R.drawable.favorites);
+        SpannableString spanStr = new SpannableString("p.");
+        spanStr.setSpan(imgspan, 0, 1, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        String str = "", userid = "";
+        for (int i = 0; i < list.length(); i++) {
             try {
-                str+=","+list.getJSONObject(i).getString("UserName");
-                userid+=","+list.getJSONObject(i).getString("UserID");
+                str += "," + list.getJSONObject(i).getString("UserName");
+                userid += "," + list.getJSONObject(i).getString("UserID");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        str=str.substring(1);
-        userid=userid.substring(1);
+        str = str.substring(1);
+        userid = userid.substring(1);
         //创建一个SpannableStringBuilder对象，连接多个字符串
         SpannableStringBuilder ssb = new SpannableStringBuilder(spanStr);
 
@@ -457,12 +477,12 @@ public class CircleAdapter extends BaseAdapter {
                 //用户姓名
                 final String name = likeUsers[i];
                 //用户ID
-                final String userID=likeUserIDs[i];
+                final String userID = likeUserIDs[i];
                 final int start = str.indexOf(name) + spanStr.length();
                 ssb.setSpan(new ClickableSpan() {
                     @Override
                     public void onClick(View widget) {
-                        T.showLong(MyApplication.getInstance(),name+"--"+userID);
+                        T.showLong(MyApplication.getInstance(), name + "--" + userID);
                     }
 
                     @Override
@@ -472,7 +492,7 @@ public class CircleAdapter extends BaseAdapter {
                         ds.setColor(Color.BLUE);
                         ds.setUnderlineText(false);
                     }
-                },start,start + name.length(),0);
+                }, start, start + name.length(), 0);
             }
         }
         return ssb;

@@ -22,6 +22,7 @@ public class MyApplication extends Application {
     public static JSONArray picurl;
     //动态评论相关参数
     public static String commentcircleID,commentreplyuserID;
+    public static int checkposition;
 
     public void onCreate() {
         super.onCreate();
