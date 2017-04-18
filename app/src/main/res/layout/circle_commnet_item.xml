@@ -13,7 +13,7 @@
             android:id="@+id/commentuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="#6A5ACD"
             android:text="帅宝宝"
             android:textStyle="bold" />
 
@@ -28,7 +28,7 @@
             android:id="@+id/commenteduser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="#6A5ACD"
             android:text="丑宝宝"
             android:textStyle="bold" />
 

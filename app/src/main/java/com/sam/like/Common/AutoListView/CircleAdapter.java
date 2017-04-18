@@ -328,12 +328,13 @@ public class CircleAdapter extends BaseAdapter {
             final JSONObject finalDataJson = dataJson;
             holder.commentlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int itemposition, long id) {
                     try {
                         JSONArray commenlist = finalDataJson.getJSONArray("CommentList");
-                        JSONObject commentdate = commenlist.getJSONObject(position);
+                        JSONObject commentdate = commenlist.getJSONObject(itemposition);
                         MyApplication.commentcircleID = circleID;
                         MyApplication.commentreplyuserID = commentdate.get("UserID").toString();
+                        MyApplication.checkposition=position;
                         commentEdit.setVisibility(View.VISIBLE);
                         commentEdit.setHint("回复" + commentdate.get("UserName").toString());
                     } catch (JSONException e) {
@@ -349,7 +350,8 @@ public class CircleAdapter extends BaseAdapter {
                 public boolean onKey(View v, int keyCode, KeyEvent event) {
                     if (keyCode == event.KEYCODE_ENTER &&
                             event.getAction() == KeyEvent.ACTION_UP) {
-                        final String commentstr = commentEdit.getText().toString();
+                        String commentstr = "";
+                        commentstr = commentEdit.getText().toString();
                         if (commentstr.isEmpty()) {
                             T.showLong(MyApplication.getInstance(), "请输入评论内容");
                         } else {
