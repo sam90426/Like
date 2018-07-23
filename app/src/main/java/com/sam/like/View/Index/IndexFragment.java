@@ -104,7 +104,7 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
         }
         final List<String> result = new ArrayList<String>();
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+        params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
         params.put("label", "");
         params.put("lastcircleID", "");
         params.put("pageindex", "" + pageindex);

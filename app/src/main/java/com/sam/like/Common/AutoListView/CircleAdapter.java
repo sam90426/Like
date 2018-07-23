@@ -158,8 +158,8 @@ public class CircleAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
-                    params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
-                    params.put("friendsID", userID);
+                    params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+                    params.put("friendsId", userID);
                     MyOkHttp myOkHttp = new MyOkHttp();
                     myOkHttp.post().url(InterfaceUrl.ApplyFriendInterface).params(MD5.getMD5(params)).tag(context).enqueue(new JsonResponseHandler() {
                         @Override
@@ -195,8 +195,8 @@ public class CircleAdapter extends BaseAdapter {
                         newcount = 1;
                     }
                     LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
-                    params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
-                    params.put("circleID", circleID);
+                    params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+                    params.put("circleId", circleID);
                     MyOkHttp myOkHttp = new MyOkHttp();
                     final int finalNewcount = newcount;
                     myOkHttp.post()
@@ -357,10 +357,10 @@ public class CircleAdapter extends BaseAdapter {
                         } else {
                             MyOkHttp myOkHttp = new MyOkHttp();
                             LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                            params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
-                            params.put("circleID", MyApplication.commentcircleID);
-                            params.put("replyuserID", MyApplication.commentreplyuserID);
-                            params.put("content", commentstr);
+                            params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+                            params.put("circleId", MyApplication.commentcircleID);
+                            params.put("replyUserId", MyApplication.commentreplyuserID);
+                            params.put("comment", commentstr);
                             myOkHttp.post()
                                     .url(InterfaceUrl.circlecommentInterface)
                                     .params(MD5.getMD5(params))

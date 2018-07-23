@@ -102,8 +102,8 @@ public class LikeAdapter extends BaseAdapter {
                         newcount = 1;
                     }
                     LinkedHashMap<String, String> params = new LinkedHashMap<String, String>();
-                    params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
-                    params.put("articleID", articleID);
+                    params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+                    params.put("articleId", articleID);
                     MyOkHttp myOkHttp = new MyOkHttp();
                     final int finalNewcount = newcount;
                     myOkHttp.post().url(url).params(MD5.getMD5(params)).tag(context).enqueue(new JsonResponseHandler() {

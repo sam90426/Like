@@ -66,7 +66,7 @@ public class SetMobile extends AppCompatActivity {
                         }else{
                             MyOkHttp myOkHttp=new MyOkHttp();
                             LinkedHashMap<String,String> params=new LinkedHashMap<>();
-                            params.put("userID",(String)SharedPreferencesUtils.getParam(SetMobile.this,"UserID",""));
+                            params.put("userId",(String)SharedPreferencesUtils.getParam(SetMobile.this,"UserID",""));
                             params.put("mobile",newmobilestr);
                             myOkHttp.post()
                                     .url(InterfaceUrl.SetMobileInterface)

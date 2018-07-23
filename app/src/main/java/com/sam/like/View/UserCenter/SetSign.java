@@ -57,7 +57,7 @@ public class SetSign extends AppCompatActivity {
                 if (!signstr.isEmpty()) {
                     MyOkHttp myOkHttp = new MyOkHttp();
                     LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                    params.put("userID", (String) SharedPreferencesUtils.getParam(SetSign.this, "UserID", ""));
+                    params.put("userId", (String) SharedPreferencesUtils.getParam(SetSign.this, "UserID", ""));
                     params.put("content", signstr);
                     myOkHttp.post()
                             .url(InterfaceUrl.SetSignInterface)

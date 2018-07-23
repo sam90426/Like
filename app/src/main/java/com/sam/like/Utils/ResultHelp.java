@@ -17,11 +17,17 @@ public class ResultHelp {
     public static boolean GetResult(Context context, JSONObject response){
         boolean result=true;
         try {
-            int state=response.getInt("status");
+            int state=response.getInt("code");
             switch (state){
-                case 0:
+                case 200:
                     //region 成功
 
+                    //endregion
+                    break;
+                case 400:
+                    //region 请求返回失败
+                    T.showLong(context,response.getString("msg"));
+                    result=false;
                     //endregion
                     break;
                 case 1:

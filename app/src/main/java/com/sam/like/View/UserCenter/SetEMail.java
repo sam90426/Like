@@ -58,7 +58,7 @@ public class SetEMail extends AppCompatActivity {
                 }else {
                     MyOkHttp myOkHttp=new MyOkHttp();
                     LinkedHashMap<String,String> params=new LinkedHashMap<>();
-                    params.put("userID",(String) SharedPreferencesUtils.getParam(SetEMail.this,"UserID",""));
+                    params.put("userId",(String) SharedPreferencesUtils.getParam(SetEMail.this,"UserID",""));
                     params.put("email",newemailstr);
                     myOkHttp.post()
                             .url(InterfaceUrl.SetEMailInterface)

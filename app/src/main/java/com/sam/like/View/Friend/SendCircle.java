@@ -102,7 +102,7 @@ public class SendCircle extends AppCompatActivity implements View.OnClickListene
                 String content = sendcirclecontent.getText().toString();
                 MyOkHttp myokhttp = new MyOkHttp();
                 LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                params.put("userID", (String) SharedPreferencesUtils.getParam(SendCircle.this, "UserID", ""));
+                params.put("userId", (String) SharedPreferencesUtils.getParam(SendCircle.this, "UserID", ""));
                 params.put("content", content);
                 params.put("label", "" + 1);
                 params.put("country", "");

@@ -86,9 +86,9 @@ public class FriendsApply extends AppCompatActivity implements AutoListView.OnRe
         }
         final List<String> result = new ArrayList<String>();
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
-        params.put("lastID", "");
-        params.put("pageindex", "" + pageindex);
+        params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+        params.put("lastId", "");
+        params.put("pageIndex", "" + pageindex);
 
         MyOkHttp myOkHttp = new MyOkHttp();
         myOkHttp.post()
@@ -100,8 +100,8 @@ public class FriendsApply extends AppCompatActivity implements AutoListView.OnRe
                     public void onSuccess(int statusCode, JSONObject response) {
                         if (ResultHelp.GetResult(MyApplication.getInstance(), response)) {
                             try {
-                                JSONObject resultarray = response.getJSONArray("result").getJSONObject(0);
-                                JSONArray listarray = resultarray.getJSONArray("Data");
+                                JSONObject resultObj = response.getJSONObject("data");
+                                JSONArray listarray = resultObj.getJSONArray("applyList");
                                 L.i("DATE::::",listarray.toString());
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
@@ -118,9 +118,10 @@ public class FriendsApply extends AppCompatActivity implements AutoListView.OnRe
                                             list.addAll(result);
                                             break;
                                     }
-                                    lstv.setResultSize(pageindex, resultarray.getInt("DataPageCount"));
+                                    int total=resultObj.getJSONObject("page").getInt("total");
+                                    lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
-                                    if (pageindex < resultarray.getInt("DataPageCount")) {
+                                    if (pageindex < total) {
                                         pageindex = pageindex + 1;
                                     }
                                 }

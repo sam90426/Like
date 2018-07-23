@@ -78,9 +78,9 @@ public class LikeFragment extends Fragment implements AutoListView.OnRefreshList
         }
         final List<String> result = new ArrayList<String>();
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
-        params.put("lastID", "");
-        params.put("pageindex", "" + pageindex);
+        params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+        params.put("lastId", "");
+        params.put("pageIndex", "" + pageindex);
 
         MyOkHttp myOkHttp = new MyOkHttp();
         myOkHttp.post()

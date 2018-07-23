@@ -64,7 +64,7 @@ public class UserCenterFragment extends Fragment implements View.OnClickListener
         //endregion
 
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+        params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
         MyOkHttp myOkHttp = new MyOkHttp();
         myOkHttp.post()
                 .url(InterfaceUrl.GetUserInfointerface)

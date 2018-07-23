@@ -58,8 +58,8 @@ public class SetNickName extends AppCompatActivity {
                 if(!nicknamestr.isEmpty()){
                     MyOkHttp myOkHttp=new MyOkHttp();
                     LinkedHashMap<String,String> params=new LinkedHashMap<>();
-                    params.put("userID",(String)SharedPreferencesUtils.getParam(SetNickName.this,"UserID",""));
-                    params.put("nickname",nicknamestr);
+                    params.put("userId",(String)SharedPreferencesUtils.getParam(SetNickName.this,"UserID",""));
+                    params.put("nickName",nicknamestr);
                     myOkHttp.post()
                             .url(InterfaceUrl.SetNickNameInterface)
                             .params(MD5.getMD5(params))

@@ -104,9 +104,9 @@ public class FriendsManage extends AppCompatActivity implements AutoListView.OnL
         }
         final List<String> result = new ArrayList<String>();
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+        params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
         params.put("lastID", "");
-        params.put("pageindex", "" + pageindex);
+        params.put("pageIndex", "" + pageindex);
 
         MyOkHttp myOkHttp = new MyOkHttp();
         myOkHttp.post()
@@ -118,15 +118,15 @@ public class FriendsManage extends AppCompatActivity implements AutoListView.OnL
                     public void onSuccess(int statusCode, JSONObject response) {
                         if (ResultHelp.GetResult(MyApplication.getInstance(), response)) {
                             try {
-                                JSONObject resultarray = response.getJSONArray("result").getJSONObject(1);
+                                JSONObject resultObj = response.getJSONObject("data");
                                 //申请好友人数
-                                int ApplyCount = response.getJSONArray("result").getInt(0);
+                                int ApplyCount = resultObj.getInt("applyCount");
                                 if (ApplyCount > 0) {
                                     friendsapplycount.setText(ApplyCount+"");
                                 }else{
                                     friendsapply.setVisibility(View.GONE);
                                 }
-                                JSONArray listarray = resultarray.getJSONArray("Data");
+                                JSONArray listarray = resultObj.getJSONArray("friends");
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
                                         result.add(listarray.getString(i));
@@ -142,9 +142,10 @@ public class FriendsManage extends AppCompatActivity implements AutoListView.OnL
                                             list.addAll(result);
                                             break;
                                     }
-                                    lstv.setResultSize(pageindex, resultarray.getInt("DataPageCount"));
+                                    int total=resultObj.getJSONObject("page").getInt("total");
+                                    lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
-                                    if (pageindex < resultarray.getInt("DataPageCount")) {
+                                    if (pageindex < total) {
                                         pageindex = pageindex + 1;
                                     }
                                 }

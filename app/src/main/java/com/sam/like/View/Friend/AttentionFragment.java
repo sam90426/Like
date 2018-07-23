@@ -111,9 +111,9 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
         }
         final List<String> result = new ArrayList<String>();
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-        params.put("userID", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
+        params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
         params.put("lastID", "");
-        params.put("pageindex", "" + pageindex);
+        params.put("pageIndex", "" + pageindex);
 
         MyOkHttp myOkHttp = new MyOkHttp();
         myOkHttp.post()

@@ -73,8 +73,8 @@ public class FriendsAdapter extends BaseAdapter {
         JSONObject dataJson = null;
         try {
             dataJson = new JSONObject(str);
-            holder.friendnametext.setText(dataJson.getString("FriendUserName"));
-            int sex=dataJson.getInt("FriendSex");
+            holder.friendnametext.setText(dataJson.getString("friendUserName"));
+            int sex=dataJson.getInt("friendSex");
             if (sex == 1) {
                 holder.friendsextext.setText("男");
             } else if(sex == 2){

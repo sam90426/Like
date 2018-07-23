@@ -59,9 +59,9 @@ public class SetPwd extends AppCompatActivity {
                     if (!newpwdstr.isEmpty()) {
                         MyOkHttp myOkHttp = new MyOkHttp();
                         LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                        params.put("userID", (String) SharedPreferencesUtils.getParam(SetPwd.this, "UserID", ""));
-                        params.put("oldpwd", oldpwdstr);
-                        params.put("newpwd", newpwdstr);
+                        params.put("userId", (String) SharedPreferencesUtils.getParam(SetPwd.this, "UserID", ""));
+                        params.put("oldPwd", oldpwdstr);
+                        params.put("newPwd", newpwdstr);
                         myOkHttp.post().url(InterfaceUrl.UpdatePwdInterface).params(MD5.getMD5(params)).tag(this).enqueue(new JsonResponseHandler() {
 
                             @Override

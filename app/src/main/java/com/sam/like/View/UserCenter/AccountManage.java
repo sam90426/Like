@@ -91,7 +91,7 @@ public class AccountManage extends AppCompatActivity implements View.OnClickList
 
                             MyOkHttp myOkHttp = new MyOkHttp();
                             LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                            params.put("userID", (String) SharedPreferencesUtils.getParam(AccountManage.this, "UserID", ""));
+                            params.put("userId", (String) SharedPreferencesUtils.getParam(AccountManage.this, "UserID", ""));
                             myOkHttp.upload()
                                     .addFile("image", "logo.jpg", baos.toByteArray())
                                     .params(MD5.getMD5(params))

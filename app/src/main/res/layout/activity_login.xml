@@ -17,7 +17,7 @@
         android:inputType="number"
         android:paddingLeft="10dp"
         android:background="@drawable/border_radius"
-        android:text="18358579576"
+        android:text="13646716801"
         android:hint="请输入账号"/>
 
     <EditText
@@ -28,7 +28,7 @@
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:background="@drawable/border_radius"
-        android:text="123456"
+        android:text="wxx90426"
         android:hint="请输入密码"/>
 
     <Button

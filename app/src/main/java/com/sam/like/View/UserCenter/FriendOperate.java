@@ -52,10 +52,10 @@ public class FriendOperate extends AppCompatActivity implements View.OnClickList
         int state = 1;
         try {
             friendinfojson = new JSONObject(friendinfo);
-            friendname.setText(friendinfojson.getString("FriendUserName"));
-            friendsex.setText(friendinfojson.getInt("FriendSex") == 1 ? "男" : "女");
-            state = friendinfojson.getInt("State");
-            listID = friendinfojson.getString("ID");
+            friendname.setText(friendinfojson.getString("friendUserName"));
+            friendsex.setText(friendinfojson.getInt("friendSex") == 1 ? "男" : "女");
+            state = friendinfojson.getInt("state");
+            listID = friendinfojson.getString("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -110,8 +110,8 @@ public class FriendOperate extends AppCompatActivity implements View.OnClickList
             public void onClick(DialogInterface dialog, int which) {
                 MyOkHttp myokHttp = new MyOkHttp();
                 LinkedHashMap<String, String> params = new LinkedHashMap<>();
-                params.put("userID", (String) SharedPreferencesUtils.getParam(FriendOperate.this, "UserID", ""));
-                params.put("friendslistID", listID);
+                params.put("userId", (String) SharedPreferencesUtils.getParam(FriendOperate.this, "UserID", ""));
+                params.put("friendsListId", listID);
                 params.put("type", ""+optype);
                 myokHttp.post()
                         .url(InterfaceUrl.FriendsOperationInterface)
