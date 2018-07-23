@@ -119,8 +119,8 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
                     public void onSuccess(int statusCode, JSONObject response) {
                         if (ResultHelp.GetResult(MyApplication.getInstance(), response)) {
                             try {
-                                JSONObject resultarray = response.getJSONArray("result").getJSONObject(1);
-                                JSONArray listarray = resultarray.getJSONArray("Data");
+                                JSONObject resultarray = response.getJSONObject("data");
+                                JSONArray listarray = resultarray.getJSONArray("circlelist");
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
                                         result.add(listarray.getString(i));
@@ -136,9 +136,10 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
                                             list.addAll(result);
                                             break;
                                     }
-                                    lstv.setResultSize(pageindex, resultarray.getInt("DataPageCount"));
+                                    int total=resultarray.getJSONObject("pageInfo").getInt("total");
+                                    lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
-                                    if (pageindex < resultarray.getInt("DataPageCount")) {
+                                    if (pageindex < total) {
                                         pageindex = pageindex + 1;
                                     }
                                 }

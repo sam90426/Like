@@ -114,21 +114,21 @@ public class CircleAdapter extends BaseAdapter {
         JSONObject dataJson = null;
         try {
             dataJson = new JSONObject(str);
-            final String userID = dataJson.getString("UserID");
-            final String circleID = dataJson.getString("ID");
-            final int ZanCount = dataJson.getInt("ZanCount");
-            final String Logo = dataJson.getString("Logo");
+            final String userID = dataJson.getString("userID");
+            final String circleID = dataJson.getString("id");
+            final int ZanCount = dataJson.getInt("zanCount");
+            final String Logo = dataJson.getString("logo");
 
             //region 用户名
-            holder.usernametext.setText(dataJson.getString("UserName"));
+            holder.usernametext.setText(dataJson.getString("userName"));
             //endregion
 
             //region 动态内容
-            holder.circlecontenttext.setText(dataJson.getString("Content"));
+            holder.circlecontenttext.setText(dataJson.getString("content"));
             //endregion
 
             //region 关注按钮显示隐藏 1=已关注 2=未关注
-            if (dataJson.getInt("Sex") == 2) {
+            if (dataJson.getInt("sex") == 2) {
                 holder.carebtn.setVisibility(View.VISIBLE);
             } else {
                 holder.carebtn.setVisibility(View.GONE);

@@ -125,8 +125,8 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
                     public void onSuccess(int statusCode, JSONObject response) {
                         if (ResultHelp.GetResult(MyApplication.getInstance(), response)) {
                             try {
-                                JSONObject resultarray = response.getJSONArray("result").getJSONObject(0);
-                                JSONArray listarray = resultarray.getJSONArray("Data");
+                                JSONObject resultarray = response.getJSONObject("data");
+                                JSONArray listarray = resultarray.getJSONArray("friendsCircle");
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
                                         result.add(listarray.getString(i));
@@ -142,9 +142,10 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
                                             list.addAll(result);
                                             break;
                                     }
-                                    lstv.setResultSize(pageindex, resultarray.getInt("DataPageCount"));
+                                    int total=resultarray.getJSONObject("pageInfo").getInt("total");
+                                    lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
-                                    if (pageindex < resultarray.getInt("DataPageCount")) {
+                                    if (pageindex < total) {
                                         pageindex = pageindex + 1;
                                     }
                                 }

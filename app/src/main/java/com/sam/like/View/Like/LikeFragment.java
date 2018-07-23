@@ -92,8 +92,8 @@ public class LikeFragment extends Fragment implements AutoListView.OnRefreshList
                     public void onSuccess(int statusCode, JSONObject response) {
                         if (ResultHelp.GetResult(MyApplication.getInstance(), response)) {
                             try {
-                                JSONObject resultarray = response.getJSONArray("result").getJSONObject(0);
-                                JSONArray listarray = resultarray.getJSONArray("Data");
+                                JSONObject resultarray = response.getJSONObject("data");
+                                JSONArray listarray = resultarray.getJSONArray("articleList");
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
                                         result.add(listarray.getString(i));
@@ -109,6 +109,7 @@ public class LikeFragment extends Fragment implements AutoListView.OnRefreshList
                                             list.addAll(result);
                                             break;
                                     }
+                                    int total=resultarray.getJSONObject("pageInfo").getInt("total");
                                     lstv.setResultSize(pageindex, resultarray.getInt("DataPageCount"));
                                     adapter.notifyDataSetChanged();
                                     if (pageindex < resultarray.getInt("DataPageCount")) {

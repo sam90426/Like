@@ -36,7 +36,7 @@ public class InterfaceUrl extends Application {
     //好友动态
     public static final String FriendCircleInterface = interfaceurl + "/circle/friendsCircle";
     //官方文章列表
-    public static final String ArticleListInterface = interfaceurl + "/article/articlelist";
+    public static final String ArticleListInterface = interfaceurl + "/article/articleList";
     //官方文章点赞
     public static final String ArticleZanInterface = interfaceurl + "/article/articlezan";
     //官方文章取消点赞
