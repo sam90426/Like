@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.R;
+import com.sam.like.Utils.L;
 import com.sam.like.Utils.MD5;
 import com.sam.like.Utils.ResultHelp;
 import com.sam.like.Utils.SharedPreferencesUtils;
@@ -103,7 +104,8 @@ public class AccountManage extends AppCompatActivity implements View.OnClickList
                                             if (ResultHelp.GetResult(AccountManage.this, response)) {
                                                 String logopath = "";
                                                 try {
-                                                    logopath = response.getJSONArray("result").getString(0);
+                                                    logopath = InterfaceUrl.interfaceurl+response.getJSONObject("data").getString("fileUrl");
+                                                    L.i(localpath);
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }

@@ -56,11 +56,11 @@ public class InterfaceUrl extends Application {
     //修改密码
     public static final String UpdatePwdInterface=interfaceurl+"/user/updatePwd";
     //修改手机号码
-    public static final String SetMobileInterface=interfaceurl+"/user/updatemobile";
+    public static final String SetMobileInterface=interfaceurl+"/user/updateMobile";
     //修改电子邮箱
-    public static final String SetEMailInterface=interfaceurl+"/user/updateemail";
+    public static final String SetEMailInterface=interfaceurl+"/user/updatEmail";
     //上传头像
-    public static final String UpdateLogoInterface=interfaceurl+"/user/updatelogo";
+    public static final String UpdateLogoInterface=interfaceurl+"/user/updateLogo";
     //动态内容图片上传
     public static final String PublishTalkImageInterface=interfaceurl+"/circle/publishtalkimage";
     //发送动态评论
