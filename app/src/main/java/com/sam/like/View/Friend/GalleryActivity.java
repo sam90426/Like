@@ -39,6 +39,7 @@ public class GalleryActivity extends AppCompatActivity {
     String imgdownpath = "";
     private ImageAdapter imgAdapter;
     private myGallery galllery;
+    private String[] pics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,8 @@ public class GalleryActivity extends AppCompatActivity {
         position = intent.getIntExtra("position", 0);
 
         galllery = (myGallery) findViewById(R.id.mygallery);
-        imgAdapter = new ImageAdapter(GalleryActivity.this, picurl);
+        pics=PicUrl.split(",");
+        imgAdapter = new ImageAdapter(GalleryActivity.this, pics);
         galllery.setAdapter(imgAdapter);        // 设置图片ImageAdapter
         galllery.setSelection(position);        // 设置当前显示图片
 
@@ -71,11 +73,8 @@ public class GalleryActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String imgpath = "";
                 imgdownpath = "";
-                try {
-                    imgpath = (new JSONObject(picurl.getString(position))).getString("picUrl");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+                imgpath = pics[position];
                 imgdownpath = imgpath;
                 AlertDialog.showDialog(GalleryActivity.this, "温馨提示", "确定下载这张图片?", new DialogInterface.OnClickListener() {
                     @Override
@@ -118,12 +117,12 @@ public class GalleryActivity extends AppCompatActivity {
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
         private int mPos;
-        private JSONArray picurllist;
+        private String[] picurllist;
         private ImageView imageview;
         private TextView counttext;
 
 
-        public ImageAdapter(Context context, JSONArray picurllist) {
+        public ImageAdapter(Context context, String[] picurllist) {
             mContext = context;
             this.picurllist = picurllist;
         }
@@ -138,7 +137,8 @@ public class GalleryActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return picurl.length();
+            //return picurl.length();
+            return pics.length;
         }
 
         @Override
@@ -166,14 +166,16 @@ public class GalleryActivity extends AppCompatActivity {
                 counttext = (TextView) convertView.findViewById(R.id.mygallery_count);
                 counttext.setAlpha(0.5f);
             }
-            counttext.setText(position + 1 + "/" + picurl.length());
+            //counttext.setText(position + 1 + "/" + picurl.length());
+            counttext.setText(position + 1 + "/" + pics.length);
             String picurlstr = "";
-            try {
+/*            try {
                 JSONObject sss = new JSONObject(picurllist.getString(position));
                 picurlstr = sss.getString("picUrl");
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
+            picurlstr=pics[position];
             if (!picurlstr.isEmpty()) {
                 Picasso.with(GalleryActivity.this).load(InterfaceUrl.interfaceurl + picurlstr).into(imageview);
             } else {

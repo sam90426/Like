@@ -260,7 +260,8 @@ public class CircleAdapter extends BaseAdapter {
 
             //region 动态图片(最多四张)
             holder.mgridview.setVisibility(View.GONE);
-            final String[] myJsonArray = dataJson.getString("picUrl").split(",");
+            final String picurlStr=dataJson.getString("picUrl");
+            final String[] myJsonArray = picurlStr.split(",");
 
             if (myJsonArray.length> 0) {
                 List<String> picurlstr = new ArrayList<>();
@@ -274,18 +275,18 @@ public class CircleAdapter extends BaseAdapter {
                 holder.mgridview.setVisibility(View.VISIBLE);
                 adapter = new CirCleGridViewAdapter(context, picurlstr);
                 holder.mgridview.setAdapter(adapter);
-                /*holder.mgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                holder.mgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //MyApplication.picurl = dataJson.getString("picUrl");
                         Intent intent = new Intent();
                         intent.setClass(context, GalleryActivity.class);
                         intent.putExtra("position", position);
-                        intent.putExtra("PicUrl", myJsonArray.toString());
+                        intent.putExtra("PicUrl", picurlStr);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }
-                });*/
+                });
             }
             //endregion
 
