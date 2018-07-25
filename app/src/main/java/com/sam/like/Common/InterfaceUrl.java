@@ -13,7 +13,7 @@ public class InterfaceUrl extends Application {
     //endregion
 
     //region 接口域名
-    public static final String interfaceurl = "http://192.168.1.110:8055";
+    public static final String interfaceurl = "http://192.168.1.110:8054";
     //public static final String interfaceurl="http://123.207.50.130:8081";
     //endregion
 
@@ -48,7 +48,7 @@ public class InterfaceUrl extends Application {
     //好友操作
     public static final String FriendsOperationInterface=interfaceurl+"/user/friendsOperation";
     //发布动态
-    public static final String SendCircleInterface=interfaceurl+"/circle/sendcircle";
+    public static final String SendCircleInterface=interfaceurl+"/circle/sendCircle";
     //修改昵称
     public static final String SetNickNameInterface=interfaceurl+"/user/updateNickName";
     //修改签名
@@ -62,7 +62,7 @@ public class InterfaceUrl extends Application {
     //上传头像
     public static final String UpdateLogoInterface=interfaceurl+"/user/updateLogo";
     //动态内容图片上传
-    public static final String PublishTalkImageInterface=interfaceurl+"/circle/publishtalkimage";
+    public static final String PublishTalkImageInterface=interfaceurl+"/circle/pushCircleImg";
     //发送动态评论
     public static final String circlecommentInterface=interfaceurl+"/circle/circleComment";
     //endregion

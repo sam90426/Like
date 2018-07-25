@@ -114,7 +114,7 @@ public class CircleAdapter extends BaseAdapter {
         JSONObject dataJson = null;
         try {
             dataJson = new JSONObject(str);
-            final String userID = dataJson.getString("userID");
+            final String userID = dataJson.getString("userId");
             final String circleID = dataJson.getString("id");
             final int ZanCount = dataJson.getInt("zanCount");
             final String Logo = dataJson.getString("logo");
@@ -260,22 +260,24 @@ public class CircleAdapter extends BaseAdapter {
 
             //region 动态图片(最多四张)
             holder.mgridview.setVisibility(View.GONE);
-            final JSONArray myJsonArray = dataJson.getJSONArray("PicUrl");
-            if (myJsonArray.length() > 0) {
+            final String[] myJsonArray = dataJson.getString("picUrl").split(",");
+
+            if (myJsonArray.length> 0) {
                 List<String> picurlstr = new ArrayList<>();
-                for (int i = 0; i < myJsonArray.length(); i++) {
-                    JSONObject sss = new JSONObject(myJsonArray.getString(i));
-                    String samllurl = sss.getString("smallPicUrl");
-                    picurlstr.add(InterfaceUrl.interfaceurl + samllurl);
-                    L.i(dataJson.getString("Content"), samllurl);
+                for (int i = 0; i < myJsonArray.length; i++) {
+                    //JSONObject sss = new JSONObject(myJsonArray[i]);
+                    //String samllurl = sss.getString("smallPicUrl");
+                    //picurlstr.add(InterfaceUrl.interfaceurl + samllurl);
+                    picurlstr.add(InterfaceUrl.interfaceurl + myJsonArray[i]);
+                    L.i(dataJson.getString("content"), myJsonArray[i]);
                 }
                 holder.mgridview.setVisibility(View.VISIBLE);
                 adapter = new CirCleGridViewAdapter(context, picurlstr);
                 holder.mgridview.setAdapter(adapter);
-                holder.mgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                /*holder.mgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        MyApplication.picurl = myJsonArray;
+                        //MyApplication.picurl = dataJson.getString("picUrl");
                         Intent intent = new Intent();
                         intent.setClass(context, GalleryActivity.class);
                         intent.putExtra("position", position);
@@ -283,7 +285,7 @@ public class CircleAdapter extends BaseAdapter {
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }
-                });
+                });*/
             }
             //endregion
 
@@ -291,8 +293,8 @@ public class CircleAdapter extends BaseAdapter {
             holder.zantext.setVisibility(View.GONE);
             holder.zancommnetline.setVisibility(View.GONE);
             holder.zancomment.setVisibility(View.GONE);
-            if (!dataJson.isNull("ZanList")) {
-                JSONArray zanlist = dataJson.getJSONArray("ZanList");
+            if (!dataJson.isNull("zanList")) {
+                JSONArray zanlist = dataJson.getJSONArray("zanList");
                 if (zanlist.length() > 0) {
                     holder.zantext.setVisibility(View.VISIBLE);
                     holder.zancommnetline.setVisibility(View.VISIBLE);
@@ -307,8 +309,8 @@ public class CircleAdapter extends BaseAdapter {
             //region 评论列表
             holder.commentlist.setVisibility(View.GONE);
             CommentList = new ArrayList<String>();
-            if (!dataJson.isNull("CommentList")) {
-                JSONArray commenlist = dataJson.getJSONArray("CommentList");
+            if (!dataJson.isNull("commentList")) {
+                JSONArray commenlist = dataJson.getJSONArray("commentList");
                 if (commenlist.length() > 0) {
                     holder.zancomment.setVisibility(View.VISIBLE);
                     for (int i = 0; i < commenlist.length(); i++) {
@@ -330,13 +332,13 @@ public class CircleAdapter extends BaseAdapter {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int itemposition, long id) {
                     try {
-                        JSONArray commenlist = finalDataJson.getJSONArray("CommentList");
+                        JSONArray commenlist = finalDataJson.getJSONArray("commentList");
                         JSONObject commentdate = commenlist.getJSONObject(itemposition);
                         MyApplication.commentcircleID = circleID;
-                        MyApplication.commentreplyuserID = commentdate.get("UserID").toString();
+                        MyApplication.commentreplyuserID = commentdate.get("userID").toString();
                         MyApplication.checkposition=position;
                         commentEdit.setVisibility(View.VISIBLE);
-                        commentEdit.setHint("回复" + commentdate.get("UserName").toString());
+                        commentEdit.setHint("回复" + commentdate.get("userName").toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -359,7 +361,7 @@ public class CircleAdapter extends BaseAdapter {
                             LinkedHashMap<String, String> params = new LinkedHashMap<>();
                             params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
                             params.put("circleId", MyApplication.commentcircleID);
-                            params.put("replyUserId", MyApplication.commentreplyuserID);
+                            params.put("replyUserId", !MyApplication.commentreplyuserID.isEmpty()?MyApplication.commentreplyuserID:"0");
                             params.put("comment", commentstr);
                             myOkHttp.post()
                                     .url(InterfaceUrl.circlecommentInterface)
@@ -378,10 +380,10 @@ public class CircleAdapter extends BaseAdapter {
                                                 try {
                                                     int newposition = MyApplication.checkposition;
                                                     JSONObject newresult = new JSONObject(list.get(newposition));
-                                                    JSONArray commentarray = newresult.getJSONArray("CommentList");
+                                                    JSONArray commentarray = newresult.getJSONArray("commentList");
                                                     JSONArray result = response.getJSONArray("result");
                                                     commentarray = commentarray.put(result.getJSONObject(0));
-                                                    list.set(newposition, newresult.put("CommentList", commentarray).toString());
+                                                    list.set(newposition, newresult.put("commentList", commentarray).toString());
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();
                                                 }
@@ -460,8 +462,8 @@ public class CircleAdapter extends BaseAdapter {
         String str = "", userid = "";
         for (int i = 0; i < list.length(); i++) {
             try {
-                str += "," + list.getJSONObject(i).getString("UserName");
-                userid += "," + list.getJSONObject(i).getString("UserID");
+                str += "," + list.getJSONObject(i).getString("userName");
+                userid += "," + list.getJSONObject(i).getString("userId");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

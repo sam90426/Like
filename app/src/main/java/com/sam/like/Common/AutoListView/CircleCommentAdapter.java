@@ -66,13 +66,13 @@ public class CircleCommentAdapter extends BaseAdapter {
         try {
             dataJson = new JSONObject(str);
             //评论人
-            String commentuserstr = dataJson.getString("UserName");
-            final String commentuserIDstr = dataJson.getString("UserID");
+            String commentuserstr = dataJson.getString("userName");
+            final String commentuserIDstr = dataJson.getString("userId");
             //被评论人
-            String commenteduserstr = dataJson.getString("ReplyUserName");
-            final String commenteduserIDstr = dataJson.getString("ReplyUserID");
+            String commenteduserstr = dataJson.has("replyUserName")?dataJson.getString("replyUserName"):"";
+            final String commenteduserIDstr = dataJson.has("replyUserId")?dataJson.getString("replyUserId"):"";
             //评论内容
-            String commentcontentstr = dataJson.getString("Comment");
+            String commentcontentstr = dataJson.getString("comment");
             commentuser.setText(commentuserstr);
 
             if (commenteduserstr.isEmpty()) {
