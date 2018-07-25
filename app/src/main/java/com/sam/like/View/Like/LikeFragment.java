@@ -109,7 +109,7 @@ public class LikeFragment extends Fragment implements AutoListView.OnRefreshList
                                             list.addAll(result);
                                             break;
                                     }
-                                    int total=resultarray.getJSONObject("pageInfo").getInt("total");
+                                    int total=resultarray.getJSONObject("pageInfo").getInt("pages");
                                     lstv.setResultSize(pageindex, resultarray.getInt("DataPageCount"));
                                     adapter.notifyDataSetChanged();
                                     if (pageindex < resultarray.getInt("DataPageCount")) {

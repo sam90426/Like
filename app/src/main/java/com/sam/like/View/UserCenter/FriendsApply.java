@@ -118,7 +118,7 @@ public class FriendsApply extends AppCompatActivity implements AutoListView.OnRe
                                             list.addAll(result);
                                             break;
                                     }
-                                    int total=resultObj.getJSONObject("page").getInt("total");
+                                    int total=resultObj.getJSONObject("page").getInt("pages");
                                     lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
                                     if (pageindex < total) {

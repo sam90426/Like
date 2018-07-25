@@ -136,7 +136,7 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
                                             list.addAll(result);
                                             break;
                                     }
-                                    int total=resultarray.getJSONObject("pageInfo").getInt("total");
+                                    int total=resultarray.getJSONObject("pageInfo").getInt("pages");
                                     lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
                                     if (pageindex < total) {
