@@ -78,10 +78,10 @@ public class LikeAdapter extends BaseAdapter {
         JSONObject dataJson = null;
         try {
             dataJson = new JSONObject(str);
-            final String articleID = dataJson.getString("ID");
-            final int ZanCount = dataJson.getInt("ZanCount");
-            holder.likehits.setText("已阅读"+dataJson.getString("Hits")+"次");
-            holder.liketitle.setText(dataJson.getString("Title"));
+            final String articleID = dataJson.getString("id");
+            final int ZanCount = dataJson.getInt("zanCount");
+            holder.likehits.setText("已阅读"+dataJson.getString("hits")+"次");
+            holder.liketitle.setText(dataJson.getString("title"));
             if (ZanCount == 1) {
                 holder.zanbtn.setText("已");
             } else {
@@ -112,7 +112,7 @@ public class LikeAdapter extends BaseAdapter {
                             if (ResultHelp.GetResult(context, response))
                                 try {
                                     JSONObject newresult = new JSONObject(list.get(position));
-                                    list.set(position, newresult.put("ZanCount", finalNewcount).toString());
+                                    list.set(position, newresult.put("zanCount", finalNewcount).toString());
                                     notifyDataSetChanged();
                                 } catch (JSONException e) {
                                     e.printStackTrace();

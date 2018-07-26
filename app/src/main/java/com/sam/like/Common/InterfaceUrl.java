@@ -38,9 +38,9 @@ public class InterfaceUrl extends Application {
     //官方文章列表
     public static final String ArticleListInterface = interfaceurl + "/article/articleList";
     //官方文章点赞
-    public static final String ArticleZanInterface = interfaceurl + "/article/articlezan";
+    public static final String ArticleZanInterface = interfaceurl + "/article/articleZan";
     //官方文章取消点赞
-    public static final String CancelArticleZanInterface = interfaceurl + "/article/delarticlezan";
+    public static final String CancelArticleZanInterface = interfaceurl + "/article/delArticleZan";
     //好友列表
     public static final String MyFriendsListInterface = interfaceurl + "/user/friendsList";
     //好友申请列表
