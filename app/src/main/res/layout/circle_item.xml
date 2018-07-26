@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="4"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -16,8 +16,9 @@
             android:id="@+id/circleitem_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:padding="5dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="#66CDAA"
             app:civ_border_width="1dp" />
@@ -26,8 +27,8 @@
             android:id="@+id/circleitem_care"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:text="+关注"
             android:visibility="invisible" />
     </LinearLayout>
@@ -58,10 +59,11 @@
 
         <com.sam.like.Common.SodukuGridView
             android:id="@+id/circle_item_gridview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="110dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:columnWidth="90dp"
             android:gravity="center"
@@ -107,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F0F0F0"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:orientation="vertical">
         <TextView

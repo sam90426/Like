@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.sam.like.Common.AutoListView.CircleAdapter;
 import com.sam.like.R;
 import com.sam.like.Utils.T;
 import com.sam.like.View.Friend.AttentionFragment;

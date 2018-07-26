@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:listSelector="@android:color/transparent"
                 android:descendantFocusability="blocksDescendants">
 
             </com.sam.like.Common.AutoListView.AutoListView>
