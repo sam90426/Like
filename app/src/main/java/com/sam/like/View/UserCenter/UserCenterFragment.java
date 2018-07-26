@@ -15,6 +15,7 @@ import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
 import com.sam.like.Common.SaveUserInfo;
 import com.sam.like.R;
+import com.sam.like.Utils.L;
 import com.sam.like.Utils.MD5;
 import com.sam.like.Utils.ResultHelp;
 import com.sam.like.Utils.SharedPreferencesUtils;
@@ -62,7 +63,8 @@ public class UserCenterFragment extends Fragment implements View.OnClickListener
 
         username.setText((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserName", ""));
         usersign.setText((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Sign", ""));
-        userlogo.setImageURI(Uri.parse((String)SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")));
+        L.i((String)SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", ""));
+        //userlogo.setImageURI(Uri.parse((String)SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")));
         Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl+SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")).into(userlogo);
         //endregion
 

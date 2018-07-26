@@ -336,7 +336,7 @@ public class CircleAdapter extends BaseAdapter {
                         JSONArray commenlist = finalDataJson.getJSONArray("commentList");
                         JSONObject commentdate = commenlist.getJSONObject(itemposition);
                         MyApplication.commentcircleID = circleID;
-                        MyApplication.commentreplyuserID = commentdate.get("userID").toString();
+                        MyApplication.commentreplyuserID = commentdate.getString("userId");
                         MyApplication.checkposition=position;
                         commentEdit.setVisibility(View.VISIBLE);
                         commentEdit.setHint("回复" + commentdate.get("userName").toString());
