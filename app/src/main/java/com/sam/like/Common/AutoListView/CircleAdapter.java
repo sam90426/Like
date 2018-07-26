@@ -209,13 +209,13 @@ public class CircleAdapter extends BaseAdapter {
                                     if (ResultHelp.GetResult(context, response)) {
                                         try {
                                             JSONObject newresult = new JSONObject(list.get(position));
-                                            JSONArray zanarray = newresult.getJSONArray("ZanList");
+                                            JSONArray zanarray = newresult.getJSONArray("zanList");
                                             JSONArray newzanarray = new JSONArray();
                                             String userid = SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", "").toString();
                                             if (ZanCount == 1) {
                                                 if (zanarray.length() > 0) {
                                                     for (int i = 0; i < zanarray.length(); i++) {
-                                                        if (!userid.equals(zanarray.getJSONObject(i).getString("UserID"))) {
+                                                        if (!userid.equals(zanarray.getJSONObject(i).getString("userId"))) {
                                                             newzanarray.put(zanarray.getJSONObject(i));
                                                         }
                                                     }
@@ -223,11 +223,11 @@ public class CircleAdapter extends BaseAdapter {
                                             } else {
                                                 newzanarray = zanarray;
                                                 JSONObject json = new JSONObject();
-                                                json.put("UserID", userid);
-                                                json.put("UserName", SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserName", ""));
+                                                json.put("userId", userid);
+                                                json.put("userName", SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserName", ""));
                                                 newzanarray.put(json);
                                             }
-                                            list.set(position, newresult.put("ZanCount", finalNewcount).put("ZanList", newzanarray).toString());
+                                            list.set(position, newresult.put("zanCount", finalNewcount).put("zanList", newzanarray).toString());
                                             notifyDataSetChanged();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -382,8 +382,8 @@ public class CircleAdapter extends BaseAdapter {
                                                     int newposition = MyApplication.checkposition;
                                                     JSONObject newresult = new JSONObject(list.get(newposition));
                                                     JSONArray commentarray = newresult.getJSONArray("commentList");
-                                                    JSONArray result = response.getJSONArray("result");
-                                                    commentarray = commentarray.put(result.getJSONObject(0));
+                                                    JSONObject result = response.getJSONObject("data");
+                                                    commentarray = commentarray.put(result);
                                                     list.set(newposition, newresult.put("commentList", commentarray).toString());
                                                 } catch (JSONException e) {
                                                     e.printStackTrace();

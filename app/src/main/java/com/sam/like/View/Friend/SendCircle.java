@@ -1,6 +1,7 @@
 package com.sam.like.View.Friend;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -64,7 +65,6 @@ public class SendCircle extends AppCompatActivity implements View.OnClickListene
         sendimg4.setOnClickListener(this);
 
 
-
         mDatas = new ArrayList<>();
         uploadlist = new ArrayList<>();
         pathlist = new ArrayList<>();
@@ -116,6 +116,9 @@ public class SendCircle extends AppCompatActivity implements View.OnClickListene
                             @Override
                             public void onSuccess(int statusCode, JSONObject response) {
                                 if (ResultHelp.GetResult(SendCircle.this, response)) {
+
+                                    Intent data=new Intent();
+                                    setResult(1,data);
                                     finish();
                                 }
                             }

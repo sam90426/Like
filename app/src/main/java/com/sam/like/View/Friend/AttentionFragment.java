@@ -91,7 +91,8 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent().setClass(MyApplication.getInstance(), SendCircle.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
+                //startActivity(intent);
             }
         });
 
@@ -183,5 +184,14 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
     public void onResume() {
         super.onResume();
         initData();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode==1){
+            initData();
+        }
     }
 }
