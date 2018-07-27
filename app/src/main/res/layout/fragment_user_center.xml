@@ -23,8 +23,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#66CDAA"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#F4F4F4"
                 android:src="@mipmap/ic_launcher" />
 
             <LinearLayout
