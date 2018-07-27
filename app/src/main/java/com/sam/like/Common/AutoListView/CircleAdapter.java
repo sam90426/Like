@@ -93,7 +93,7 @@ public class CircleAdapter extends BaseAdapter {
             //region 控件初始化
             holder.usernametext = (TextView) convertView.findViewById(R.id.circleitem_username);
             holder.circlecontenttext = (TextView) convertView.findViewById(R.id.circleitem_content);
-            holder.carebtn = (Button) convertView.findViewById(R.id.circleitem_care);
+            holder.carebtn = (ImageButton) convertView.findViewById(R.id.circleitem_care);
             holder.zanbtn = (ImageButton) convertView.findViewById(R.id.circleitem_zan);
             holder.logo = (ImageView) convertView.findViewById(R.id.circleitem_logo);
             holder.mgridview = (SodukuGridView) convertView.findViewById(R.id.circle_item_gridview);
@@ -166,7 +166,7 @@ public class CircleAdapter extends BaseAdapter {
                         public void onSuccess(int statusCode, JSONObject response) {
                             if (ResultHelp.GetResult(context, response)) {
                                 try {
-                                    T.showShort(context, response.getString("message"));
+                                    T.showShort(context, response.getString("msg"));
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -416,7 +416,7 @@ public class CircleAdapter extends BaseAdapter {
     private static class ViewHolder {
         private TextView usernametext;
         private TextView circlecontenttext;
-        private Button carebtn;
+        private ImageButton carebtn;
         private ImageButton zanbtn;
         private ImageButton commentbtn;
         private ImageView logo;
