@@ -31,7 +31,7 @@ public class VideoRecordSurface extends SurfaceView implements SurfaceHolder.Cal
     private File mRecordFile;//存储的路径
     private MediaRecorder mMediaRecorder;
     private int mTimeCount = 1;//开启时间
-    public final int mRecordMaxTime = 6;//最大时间
+    public final int mRecordMaxTime = 10;//最大时间
     public final int mRecordMiniTime = 2;//最小时间
     private Timer mTimer;
     private OnRecordListener mOnRecordListener;

@@ -55,6 +55,7 @@
         <activity android:name=".View.Friend.GalleryActivity"/>
         <activity android:name="com.sam.like.Common.Video.VedioRecordActivity"/>
         <activity android:name="com.sam.like.Common.Video.VideoPlayActivity"/>
+        <activity android:name="com.sam.like.View.Friend.SendCircleByVideo"/>
     </application>
 
 </manifest>

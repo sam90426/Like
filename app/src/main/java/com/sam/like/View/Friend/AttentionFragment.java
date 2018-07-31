@@ -2,12 +2,10 @@ package com.sam.like.View.Friend;
 
 
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +14,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sam.like.Common.AlertDialog;
 import com.sam.like.Common.AutoListView.AutoListView;
 import com.sam.like.Common.AutoListView.CircleAdapter;
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
 import com.sam.like.Common.Video.VedioRecordActivity;
-import com.sam.like.MainActivity;
 import com.sam.like.R;
 import com.sam.like.Utils.KeyBoardUtils;
-import com.sam.like.Utils.L;
 import com.sam.like.Utils.MD5;
 import com.sam.like.Utils.ResultHelp;
 import com.sam.like.Utils.SharedPreferencesUtils;
@@ -85,7 +80,7 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 commentEdit.setText("");
                 commentEdit.setVisibility(View.GONE);
-                KeyBoardUtils.closeKeybord(commentEdit,MyApplication.getInstance());
+                KeyBoardUtils.closeKeybord(commentEdit, MyApplication.getInstance());
             }
         });
         //endregion
@@ -94,7 +89,7 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent().setClass(MyApplication.getInstance(), SendCircle.class);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent, 1);
                 //startActivity(intent);
             }
         });
@@ -103,9 +98,11 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
             @Override
             public boolean onLongClick(View v) {
                 String videoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/customVideo/";
-                Intent intent = new Intent(MyApplication.getInstance(),VedioRecordActivity.class);
+                Intent intent = new Intent(MyApplication.getInstance(), VedioRecordActivity.class);
                 intent.putExtra("videoSavePath", videoPath);
                 startActivity(intent);
+/*                Intent intent = new Intent().setClass(MyApplication.getInstance(), SendCircleByVideo.class);
+                startActivity(intent);*/
                 return true;
             }
         });
@@ -157,7 +154,7 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
                                             list.addAll(result);
                                             break;
                                     }
-                                    int total=resultarray.getJSONObject("pageInfo").getInt("pages");
+                                    int total = resultarray.getJSONObject("pageInfo").getInt("pages");
                                     lstv.setResultSize(pageindex, total);
                                     adapter.notifyDataSetChanged();
                                     if (pageindex < total) {
@@ -204,7 +201,7 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode==1){
+        if (resultCode == 1) {
             initData();
         }
     }

@@ -1,15 +1,20 @@
 package com.sam.like.Common.Video;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import android.support.v7.app.AppCompatActivity;
 
 import com.sam.like.R;
+import com.sam.like.Utils.T;
+import com.sam.like.View.Friend.SendCircle;
+import com.sam.like.View.Friend.SendCircleByVideo;
 
 import java.io.File;
 
@@ -18,14 +23,15 @@ public class VideoPlayActivity extends AppCompatActivity {
     TextView libPlayVideo_tv_title;
     VideoView videoView;
     private boolean isFirst = true;
+    Button video_ok,video_cancle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_video_play);
-        libPlayVideo_tv_title = (TextView) findViewById(R.id.libPlayVideo_tv_title);
-        libPlayVideo_tv_title.setText("视频播放");
+        //libPlayVideo_tv_title = (TextView) findViewById(R.id.libPlayVideo_tv_title);
+        //libPlayVideo_tv_title.setText("视频播放");
         videoView = (VideoView) findViewById(R.id.libPlayVideo_videoView);
         videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
             @Override
@@ -37,8 +43,10 @@ public class VideoPlayActivity extends AppCompatActivity {
                 return true;
             }
         });
+        video_ok= (Button) findViewById(R.id.video_ok);
+        video_cancle= (Button) findViewById(R.id.video_cancle);
 
-        String mVideoPath = getIntent().getStringExtra(VedioRecordActivity.kVideoSavePath);
+        final String mVideoPath = getIntent().getStringExtra(VedioRecordActivity.kVideoSavePath);
         File file = new File(mVideoPath);
         if (file.exists()) {
             videoView.setVideoPath(file.getAbsolutePath());
@@ -47,6 +55,25 @@ public class VideoPlayActivity extends AppCompatActivity {
         } else {
             Log.e("tag","not found video " + mVideoPath);
         }
+
+        video_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                T.showLong(VideoPlayActivity.this,mVideoPath);
+                Intent intent= new Intent();
+                intent.setClass(VideoPlayActivity.this, SendCircleByVideo.class);
+                intent.putExtra("path",mVideoPath);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        video_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     public void setLoop(final String videoPath) {
@@ -69,13 +96,13 @@ public class VideoPlayActivity extends AppCompatActivity {
     }
 
     public void videoPlayClick(View view){
-        switch (view.getId()){
+/*        switch (view.getId()){
             case R.id.libPlayVideo_tv_cancel:
                 finish();
                 break;
             case R.id.libPlayVideo_tv_more:
                 Toast.makeText(this, "更多", Toast.LENGTH_SHORT).show();
                 break;
-        }
+        }*/
     }
 }

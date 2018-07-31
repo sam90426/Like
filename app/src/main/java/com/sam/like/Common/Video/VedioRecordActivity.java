@@ -160,6 +160,7 @@ public class VedioRecordActivity extends AppCompatActivity implements VideoRecor
         String recordThumbDir = videoRecordSurface.getRecordThumbDir(); //视频首张照片
         String recordMp4Dir = videoRecordSurface.getRecordDir(); //视频播放地址
         startActivity(new Intent(this, VideoPlayActivity.class).putExtra(kVideoSavePath, recordMp4Dir));
+        finish();
     }
 
     @Override
