@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import com.sam.like.Common.AutoListView.AutoListView;
 import com.sam.like.Common.AutoListView.CircleAdapter;
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
+import com.sam.like.Common.Video.VedioRecordActivity;
+import com.sam.like.MainActivity;
 import com.sam.like.R;
 import com.sam.like.Utils.KeyBoardUtils;
 import com.sam.like.Utils.L;
@@ -93,6 +96,17 @@ public class AttentionFragment extends Fragment implements AutoListView.OnLoadLi
                 Intent intent = new Intent().setClass(MyApplication.getInstance(), SendCircle.class);
                 startActivityForResult(intent,1);
                 //startActivity(intent);
+            }
+        });
+
+        attentionsend.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String videoPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/customVideo/";
+                Intent intent = new Intent(MyApplication.getInstance(),VedioRecordActivity.class);
+                intent.putExtra("videoSavePath", videoPath);
+                startActivity(intent);
+                return true;
             }
         });
 

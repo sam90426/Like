@@ -13,6 +13,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+
     <application
         android:name=".Common.MyApplication"
         android:allowBackup="true"
@@ -49,7 +52,9 @@
         <activity android:name=".View.UserCenter.SetPwd" />
         <activity android:name=".View.UserCenter.SetMobile" />
         <activity android:name=".View.UserCenter.SetEMail" />
-        <activity android:name=".View.Friend.GalleryActivity"></activity>
+        <activity android:name=".View.Friend.GalleryActivity"/>
+        <activity android:name="com.sam.like.Common.Video.VedioRecordActivity"/>
+        <activity android:name="com.sam.like.Common.Video.VideoPlayActivity"/>
     </application>
 
 </manifest>
