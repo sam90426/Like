@@ -3,6 +3,7 @@ package com.sam.like.Common.AutoListView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -10,6 +11,7 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
@@ -39,12 +43,14 @@ import com.sam.like.Utils.T;
 import com.sam.like.Utils.myokhttp.MyOkHttp;
 import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
 import com.sam.like.View.Friend.GalleryActivity;
+import com.sam.like.View.Friend.SendCircleByVideo;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -61,6 +67,8 @@ public class CircleAdapter extends BaseAdapter {
     private List<String> CommentList;
     private List<String> ZanList;
     private EditText commentEdit;
+    private VideoView videoView;
+    private boolean isFirst = true;
 
     public CircleAdapter(Context context, List<String> list, EditText commentedit) {
         this.list = list;
@@ -102,6 +110,17 @@ public class CircleAdapter extends BaseAdapter {
             holder.zantext = (TextView) convertView.findViewById(R.id.zantext);
             holder.zancomment = (LinearLayout) convertView.findViewById(R.id.circle_item_zancomment);
             holder.zancommnetline = convertView.findViewById(R.id.circle_item_line);
+            holder.videoView = (VideoView) convertView.findViewById(R.id.videoView_for_circle);
+            holder.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    if (isFirst) {
+                        isFirst = false;
+                        Toast.makeText(context, "播放该视频异常", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+            });
             //endregion
 
             convertView.setTag(holder);
@@ -118,6 +137,7 @@ public class CircleAdapter extends BaseAdapter {
             final String circleID = dataJson.getString("id");
             final int ZanCount = dataJson.getInt("zanCount");
             final String Logo = dataJson.getString("logo");
+            final int type=dataJson.getInt("type");
 
             //region 用户名
             holder.usernametext.setText(dataJson.getString("userName"));
@@ -258,37 +278,72 @@ public class CircleAdapter extends BaseAdapter {
             });
             //endregion
 
-            //region 动态图片(最多四张)
-            holder.mgridview.setVisibility(View.GONE);
-            final String picurlStr=dataJson.getString("picUrl");
-            final String[] myJsonArray = picurlStr.split(",");
+            if(type==2) {
+                //region 动态图片(最多四张)
+                holder.mgridview.setVisibility(View.GONE);
+                holder.videoView.setVisibility(View.GONE);
+                final String picurlStr = dataJson.getString("picUrl");
+                final String[] myJsonArray = picurlStr.split(",");
 
-            if (myJsonArray.length> 0) {
-                List<String> picurlstr = new ArrayList<>();
-                for (int i = 0; i < myJsonArray.length; i++) {
-                    //JSONObject sss = new JSONObject(myJsonArray[i]);
-                    //String samllurl = sss.getString("smallPicUrl");
-                    //picurlstr.add(InterfaceUrl.interfaceurl + samllurl);
-                    picurlstr.add(InterfaceUrl.interfaceurl + myJsonArray[i]);
-                    L.i(dataJson.getString("content"), myJsonArray[i]);
-                }
-                holder.mgridview.setVisibility(View.VISIBLE);
-                adapter = new CirCleGridViewAdapter(context, picurlstr);
-                holder.mgridview.setAdapter(adapter);
-                holder.mgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //MyApplication.picurl = dataJson.getString("picUrl");
-                        Intent intent = new Intent();
-                        intent.setClass(context, GalleryActivity.class);
-                        intent.putExtra("position", position);
-                        intent.putExtra("PicUrl", picurlStr);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                if (myJsonArray.length > 0) {
+                    List<String> picurlstr = new ArrayList<>();
+                    for (int i = 0; i < myJsonArray.length; i++) {
+                        //JSONObject sss = new JSONObject(myJsonArray[i]);
+                        //String samllurl = sss.getString("smallPicUrl");
+                        //picurlstr.add(InterfaceUrl.interfaceurl + samllurl);
+                        picurlstr.add(InterfaceUrl.interfaceurl + myJsonArray[i]);
+                        L.i(dataJson.getString("content"), myJsonArray[i]);
                     }
-                });
+                    holder.mgridview.setVisibility(View.VISIBLE);
+                    adapter = new CirCleGridViewAdapter(context, picurlstr);
+                    holder.mgridview.setAdapter(adapter);
+                    holder.mgridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //MyApplication.picurl = dataJson.getString("picUrl");
+                            Intent intent = new Intent();
+                            intent.setClass(context, GalleryActivity.class);
+                            intent.putExtra("position", position);
+                            intent.putExtra("PicUrl", picurlStr);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        }
+                    });
+                }
+                //endregion
+            }else if(type==3) {
+                //region 绑定视频
+                holder.mgridview.setVisibility(View.GONE);
+                holder.videoView.setVisibility(View.GONE);
+                final File file = new File(dataJson.getString("picUrl"));
+                if (file.exists()) {
+                    holder.videoView.setVisibility(View.VISIBLE);
+                    holder.videoView.setVideoPath(file.getAbsolutePath());
+                    holder.videoView.start();
+                    holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                            mp.setLooping(true);
+
+                        }
+                    });
+                    holder.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            holder.videoView.setVideoPath(file.getAbsolutePath());
+                            holder.videoView.start();
+                        }
+                    });
+                } else {
+                    Log.e("tag", "not found video " + dataJson.getString("picUrl"));
+                }
+                //endregion
+            }else{
+                holder.mgridview.setVisibility(View.GONE);
+                holder.videoView.setVisibility(View.GONE);
             }
-            //endregion
 
             //region 点赞列表
             holder.zantext.setVisibility(View.GONE);
@@ -426,6 +481,7 @@ public class CircleAdapter extends BaseAdapter {
         private TextView zantext;
         private LinearLayout zancomment;
         private View zancommnetline;
+        public VideoView videoView;
     }
 
     //region 计算listview高度

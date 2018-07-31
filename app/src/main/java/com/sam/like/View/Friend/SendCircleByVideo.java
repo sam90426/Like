@@ -40,8 +40,8 @@ public class SendCircleByVideo extends AppCompatActivity {
     private ArrayList<byte[]> uploadlist;
     private ArrayList<String> pathlist;
     private String isoutstr = "0";
-    VideoView videoView;
-    ImageView sendcircleback;
+    private VideoView videoView;
+    private ImageView sendcircleback;
     private boolean isFirst = true;
 
     @Override
