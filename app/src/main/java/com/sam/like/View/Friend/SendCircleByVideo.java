@@ -3,6 +3,7 @@ package com.sam.like.View.Friend;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +29,10 @@ import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
 
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -132,7 +136,23 @@ public class SendCircleByVideo extends AppCompatActivity {
                 params.put("label", "" + 1);
                 params.put("country", "");
                 params.put("isout", isoutstr);
-                myokhttp.upload().addFile("video", file)
+
+                //region 获取视频第一帧
+                MediaMetadataRetriever mmr=new MediaMetadataRetriever();
+                mmr.setDataSource(file.getAbsolutePath());
+                Bitmap bitmap=mmr.getFrameAtTime();//获得视频第一帧的Bitmap对象
+                final File videoimg=new File("/storage/emulated/0/1234.jpg");//将要保存图片的路径
+                try {
+                    BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(videoimg));
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+                    bos.flush();
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //endregion
+
+                myokhttp.upload().addFile("video", file).addFile("image",videoimg)
                         .params(MD5.getMD5(params))
                         .url(InterfaceUrl.SendCircleInterface)
                         .tag(this)
@@ -140,7 +160,7 @@ public class SendCircleByVideo extends AppCompatActivity {
                             @Override
                             public void onSuccess(int statusCode, JSONObject response) {
                                 if (ResultHelp.GetResult(SendCircleByVideo.this, response)) {
-
+                                    file.delete();
                                     Intent data = new Intent();
                                     setResult(1, data);
                                     finish();

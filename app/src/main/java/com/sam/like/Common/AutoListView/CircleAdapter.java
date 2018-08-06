@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -32,6 +34,7 @@ import android.widget.VideoView;
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
 import com.sam.like.Common.SodukuGridView;
+import com.sam.like.Common.Video.VideoPlayActivity;
 import com.sam.like.R;
 import com.sam.like.Utils.KeyBoardUtils;
 import com.sam.like.Utils.L;
@@ -67,8 +70,10 @@ public class CircleAdapter extends BaseAdapter {
     private List<String> CommentList;
     private List<String> ZanList;
     private EditText commentEdit;
-    private VideoView videoView;
+    private ImageView videoView;
     private boolean isFirst = true;
+    private RelativeLayout video_r;
+    private ImageButton video_play;
 
     public CircleAdapter(Context context, List<String> list, EditText commentedit) {
         this.list = list;
@@ -110,8 +115,10 @@ public class CircleAdapter extends BaseAdapter {
             holder.zantext = (TextView) convertView.findViewById(R.id.zantext);
             holder.zancomment = (LinearLayout) convertView.findViewById(R.id.circle_item_zancomment);
             holder.zancommnetline = convertView.findViewById(R.id.circle_item_line);
-            holder.videoView = (VideoView) convertView.findViewById(R.id.videoView_for_circle);
-            holder.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+            holder.videoView = (ImageView) convertView.findViewById(R.id.videoView_for_circle);
+            holder.video_r=(RelativeLayout)convertView.findViewById(R.id.video_r);
+            holder.video_play=(ImageButton)convertView.findViewById(R.id.video_play);
+/*            holder.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
                     if (isFirst) {
@@ -120,7 +127,7 @@ public class CircleAdapter extends BaseAdapter {
                     }
                     return true;
                 }
-            });
+            });*/
             //endregion
 
             convertView.setTag(holder);
@@ -315,7 +322,19 @@ public class CircleAdapter extends BaseAdapter {
                 //region 绑定视频
                 holder.mgridview.setVisibility(View.GONE);
                 holder.videoView.setVisibility(View.GONE);
-                final File file = new File(dataJson.getString("picUrl"));
+                final String picurlStr = dataJson.getString("picUrl");
+                final String[] myJsonArray = picurlStr.split(",");
+                if(myJsonArray.length==2){
+                    holder.videoView.setVisibility(View.VISIBLE);
+                    holder.videoView.setImageURI(Uri.parse(myJsonArray[0]));
+                }
+                holder.video_play.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        context.startActivity(new Intent(context, VideoPlayActivity.class).putExtra("videoSavePath", myJsonArray[0]));
+                    }
+                });
+                /*final File file = new File(dataJson.getString("picUrl"));
                 if (file.exists()) {
                     holder.videoView.setVisibility(View.VISIBLE);
                     holder.videoView.setVideoPath(file.getAbsolutePath());
@@ -338,7 +357,7 @@ public class CircleAdapter extends BaseAdapter {
                     });
                 } else {
                     Log.e("tag", "not found video " + dataJson.getString("picUrl"));
-                }
+                }*/
                 //endregion
             }else{
                 holder.mgridview.setVisibility(View.GONE);
@@ -481,7 +500,9 @@ public class CircleAdapter extends BaseAdapter {
         private TextView zantext;
         private LinearLayout zancomment;
         private View zancommnetline;
-        public VideoView videoView;
+        public ImageView videoView;
+        public RelativeLayout video_r;
+        public ImageButton video_play;
     }
 
     //region 计算listview高度
