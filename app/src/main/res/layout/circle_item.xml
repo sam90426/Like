@@ -91,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_gf_done"
+                android:layout_above="@id/videoView_for_circle"
                 android:foregroundGravity="center"/>
         </RelativeLayout>
 

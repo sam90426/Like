@@ -7,14 +7,8 @@
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:name=".Common.MyApplication"
@@ -52,10 +46,11 @@
         <activity android:name=".View.UserCenter.SetPwd" />
         <activity android:name=".View.UserCenter.SetMobile" />
         <activity android:name=".View.UserCenter.SetEMail" />
-        <activity android:name=".View.Friend.GalleryActivity"/>
-        <activity android:name="com.sam.like.Common.Video.VedioRecordActivity"/>
-        <activity android:name="com.sam.like.Common.Video.VideoPlayActivity"/>
-        <activity android:name="com.sam.like.View.Friend.SendCircleByVideo"/>
+        <activity android:name=".View.Friend.GalleryActivity" />
+        <activity android:name=".Common.Video.VedioRecordActivity" />
+        <activity android:name=".Common.Video.VideoPlayActivity" />
+        <activity android:name=".View.Friend.SendCircleByVideo" />
+        <activity android:name=".View.Friend.VideoActivity"></activity>
     </application>
 
 </manifest>

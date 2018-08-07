@@ -47,6 +47,7 @@ import com.sam.like.Utils.myokhttp.MyOkHttp;
 import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
 import com.sam.like.View.Friend.GalleryActivity;
 import com.sam.like.View.Friend.SendCircleByVideo;
+import com.sam.like.View.Friend.VideoActivity;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -324,16 +325,18 @@ public class CircleAdapter extends BaseAdapter {
                 holder.videoView.setVisibility(View.GONE);
                 final String picurlStr = dataJson.getString("picUrl");
                 final String[] myJsonArray = picurlStr.split(",");
-                if(myJsonArray.length==2){
+                if(myJsonArray.length==2) {
                     holder.videoView.setVisibility(View.VISIBLE);
                     holder.videoView.setImageURI(Uri.parse(myJsonArray[0]));
+                    Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + myJsonArray[0]).into(holder.videoView);
+
+                    holder.videoView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            context.startActivity(new Intent(context, VideoActivity.class).putExtra("videoSavePath", InterfaceUrl.interfaceurl + myJsonArray[1]));
+                        }
+                    });
                 }
-                holder.video_play.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        context.startActivity(new Intent(context, VideoPlayActivity.class).putExtra("videoSavePath", myJsonArray[0]));
-                    }
-                });
                 /*final File file = new File(dataJson.getString("picUrl"));
                 if (file.exists()) {
                     holder.videoView.setVisibility(View.VISIBLE);
