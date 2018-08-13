@@ -16,9 +16,9 @@
             android:id="@+id/circleitem_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="6dp"
             android:src="@mipmap/ic_launcher"
             app:civ_border_color="#F4F4F4"
             app:civ_border_width="1dp" />
@@ -62,38 +62,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="110dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="110dp"
             android:layout_marginTop="5dp"
             android:columnWidth="90dp"
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:numColumns="2"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp">
-        </com.sam.like.Common.SodukuGridView>
-        <RelativeLayout
+            android:verticalSpacing="10dp"></com.sam.like.Common.SodukuGridView>
+
+        <FrameLayout
             android:id="@+id/video_r"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="110dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="110dp"
             android:layout_marginTop="5dp"
             android:gravity="center">
-        <ImageView
-            android:id="@+id/videoView_for_circle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+
+            <ImageView
+                android:id="@+id/videoView_for_circle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <ImageButton
                 android:id="@+id/video_play"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_gf_done"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_above="@id/videoView_for_circle"
-                android:foregroundGravity="center"/>
-        </RelativeLayout>
+                android:background="@drawable/play_btn"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -129,34 +130,34 @@
             android:id="@+id/circle_item_zancomment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F0F0F0"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
-            android:orientation="vertical">
-        <TextView
-            android:id="@+id/zantext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp" />
-
-        <View
-            android:id="@+id/circle_item_line"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="3dp"
-            android:background="#33000000">
-        </View>
+            android:background="#F0F0F0"
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/circle_comment_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingLeft="5dp">
+            <TextView
+                android:id="@+id/zantext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp" />
 
-        </ListView>
+            <View
+                android:id="@+id/circle_item_line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="3dp"
+                android:background="#33000000"></View>
+
+            <ListView
+                android:id="@+id/circle_comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="5dp">
+
+            </ListView>
         </LinearLayout>
     </LinearLayout>
 

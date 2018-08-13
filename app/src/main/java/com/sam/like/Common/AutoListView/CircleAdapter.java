@@ -3,7 +3,6 @@ package com.sam.like.Common.AutoListView;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -12,29 +11,24 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
 import com.sam.like.Common.SodukuGridView;
-import com.sam.like.Common.Video.VideoPlayActivity;
 import com.sam.like.R;
 import com.sam.like.Utils.KeyBoardUtils;
 import com.sam.like.Utils.L;
@@ -46,7 +40,6 @@ import com.sam.like.Utils.T;
 import com.sam.like.Utils.myokhttp.MyOkHttp;
 import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
 import com.sam.like.View.Friend.GalleryActivity;
-import com.sam.like.View.Friend.SendCircleByVideo;
 import com.sam.like.View.Friend.VideoActivity;
 import com.squareup.picasso.Picasso;
 
@@ -54,7 +47,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -73,7 +65,7 @@ public class CircleAdapter extends BaseAdapter {
     private EditText commentEdit;
     private ImageView videoView;
     private boolean isFirst = true;
-    private RelativeLayout video_r;
+    private FrameLayout video_r;
     private ImageButton video_play;
 
     public CircleAdapter(Context context, List<String> list, EditText commentedit) {
@@ -117,18 +109,9 @@ public class CircleAdapter extends BaseAdapter {
             holder.zancomment = (LinearLayout) convertView.findViewById(R.id.circle_item_zancomment);
             holder.zancommnetline = convertView.findViewById(R.id.circle_item_line);
             holder.videoView = (ImageView) convertView.findViewById(R.id.videoView_for_circle);
-            holder.video_r=(RelativeLayout)convertView.findViewById(R.id.video_r);
-            holder.video_play=(ImageButton)convertView.findViewById(R.id.video_play);
-/*            holder.videoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    if (isFirst) {
-                        isFirst = false;
-                        Toast.makeText(context, "播放该视频异常", Toast.LENGTH_SHORT).show();
-                    }
-                    return true;
-                }
-            });*/
+            holder.video_r = (FrameLayout) convertView.findViewById(R.id.video_r);
+            holder.video_play = (ImageButton) convertView.findViewById(R.id.video_play);
+
             //endregion
 
             convertView.setTag(holder);
@@ -145,7 +128,7 @@ public class CircleAdapter extends BaseAdapter {
             final String circleID = dataJson.getString("id");
             final int ZanCount = dataJson.getInt("zanCount");
             final String Logo = dataJson.getString("logo");
-            final int type=dataJson.getInt("type");
+            final int type = dataJson.getInt("type");
 
             //region 用户名
             holder.usernametext.setText(dataJson.getString("userName"));
@@ -286,10 +269,13 @@ public class CircleAdapter extends BaseAdapter {
             });
             //endregion
 
-            if(type==2) {
+            holder.mgridview.setVisibility(View.GONE);
+            holder.videoView.setVisibility(View.GONE);
+            holder.video_r.setVisibility(View.GONE);
+            holder.video_play.setVisibility(View.GONE);
+            if (type == 2) {
                 //region 动态图片(最多四张)
-                holder.mgridview.setVisibility(View.GONE);
-                holder.videoView.setVisibility(View.GONE);
+
                 final String picurlStr = dataJson.getString("picUrl");
                 final String[] myJsonArray = picurlStr.split(",");
 
@@ -319,52 +305,25 @@ public class CircleAdapter extends BaseAdapter {
                     });
                 }
                 //endregion
-            }else if(type==3) {
+            } else if (type == 3) {
                 //region 绑定视频
-                holder.mgridview.setVisibility(View.GONE);
-                holder.videoView.setVisibility(View.GONE);
                 final String picurlStr = dataJson.getString("picUrl");
                 final String[] myJsonArray = picurlStr.split(",");
-                if(myJsonArray.length==2) {
+                if (myJsonArray.length == 2) {
+                    holder.video_r.setVisibility(View.VISIBLE);
+                    holder.video_play.setVisibility(View.VISIBLE);
                     holder.videoView.setVisibility(View.VISIBLE);
                     holder.videoView.setImageURI(Uri.parse(myJsonArray[0]));
                     Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + myJsonArray[0]).into(holder.videoView);
 
-                    holder.videoView.setOnClickListener(new View.OnClickListener() {
+                    holder.video_play.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             context.startActivity(new Intent(context, VideoActivity.class).putExtra("videoSavePath", InterfaceUrl.interfaceurl + myJsonArray[1]));
                         }
                     });
                 }
-                /*final File file = new File(dataJson.getString("picUrl"));
-                if (file.exists()) {
-                    holder.videoView.setVisibility(View.VISIBLE);
-                    holder.videoView.setVideoPath(file.getAbsolutePath());
-                    holder.videoView.start();
-                    holder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            mp.start();
-                            mp.setLooping(true);
-
-                        }
-                    });
-                    holder.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            holder.videoView.setVideoPath(file.getAbsolutePath());
-                            holder.videoView.start();
-                        }
-                    });
-                } else {
-                    Log.e("tag", "not found video " + dataJson.getString("picUrl"));
-                }*/
                 //endregion
-            }else{
-                holder.mgridview.setVisibility(View.GONE);
-                holder.videoView.setVisibility(View.GONE);
             }
 
             //region 点赞列表
@@ -414,7 +373,7 @@ public class CircleAdapter extends BaseAdapter {
                         JSONObject commentdate = commenlist.getJSONObject(itemposition);
                         MyApplication.commentcircleID = circleID;
                         MyApplication.commentreplyuserID = commentdate.getString("userId");
-                        MyApplication.checkposition=position;
+                        MyApplication.checkposition = position;
                         commentEdit.setVisibility(View.VISIBLE);
                         commentEdit.setHint("回复" + commentdate.get("userName").toString());
                     } catch (JSONException e) {
@@ -439,7 +398,7 @@ public class CircleAdapter extends BaseAdapter {
                             LinkedHashMap<String, String> params = new LinkedHashMap<>();
                             params.put("userId", (String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserID", ""));
                             params.put("circleId", MyApplication.commentcircleID);
-                            params.put("replyUserId", !MyApplication.commentreplyuserID.isEmpty()?MyApplication.commentreplyuserID:"0");
+                            params.put("replyUserId", !MyApplication.commentreplyuserID.isEmpty() ? MyApplication.commentreplyuserID : "0");
                             params.put("comment", commentstr);
                             myOkHttp.post()
                                     .url(InterfaceUrl.circlecommentInterface)
@@ -504,7 +463,7 @@ public class CircleAdapter extends BaseAdapter {
         private LinearLayout zancomment;
         private View zancommnetline;
         public ImageView videoView;
-        public RelativeLayout video_r;
+        public FrameLayout video_r;
         public ImageButton video_play;
     }
 
