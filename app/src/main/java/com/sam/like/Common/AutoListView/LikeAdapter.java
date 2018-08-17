@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sam.like.Common.InterfaceUrl;
@@ -17,6 +19,7 @@ import com.sam.like.Utils.ResultHelp;
 import com.sam.like.Utils.SharedPreferencesUtils;
 import com.sam.like.Utils.myokhttp.MyOkHttp;
 import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,7 +69,9 @@ public class LikeAdapter extends BaseAdapter {
             //region 控件初始化
             holder.likehits = (TextView) convertView.findViewById(R.id.like_hits);
             holder.liketitle = (TextView) convertView.findViewById(R.id.like_title);
-            holder.zanbtn = (Button) convertView.findViewById(R.id.like_zan);
+            holder.zanbtn = (ImageButton) convertView.findViewById(R.id.like_zan);
+            holder.likeImg=(ImageView)convertView.findViewById(R.id.like_img);
+            holder.likeTime=(TextView)convertView.findViewById(R.id.like_time);
             //endregion
 
         } else {
@@ -83,12 +88,16 @@ public class LikeAdapter extends BaseAdapter {
             holder.likehits.setText("已阅读"+dataJson.getString("hits")+"次");
             holder.liketitle.setText(dataJson.getString("title"));
             if (ZanCount == 1) {
-                holder.zanbtn.setText("已");
+                holder.zanbtn.setImageResource(R.drawable.good);
             } else {
-                holder.zanbtn.setText("赞");
+                holder.zanbtn.setImageResource(R.drawable.ungood);
             }
+            String imgPath=dataJson.getString("picUrl");
+            Picasso.with(context).load(InterfaceUrl.interfaceurl + imgPath).fit().into(holder.likeImg);
 
-
+            String timestr=dataJson.getString("createTime");
+            timestr=timestr.substring(0,10);
+            holder.likeTime.setText(timestr);
             //region点赞
             holder.zanbtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,7 +148,9 @@ public class LikeAdapter extends BaseAdapter {
     private static class ViewHolder {
         TextView likehits;
         TextView liketitle;
-        Button zanbtn;
+        TextView likeTime;
+        ImageButton zanbtn;
+        ImageView likeImg;
     }
 
 }

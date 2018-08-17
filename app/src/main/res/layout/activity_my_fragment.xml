@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:background="#00000000"
             android:scaleType="centerInside"
-            android:src="@drawable/home"
+            android:src="@drawable/index"
             android:text="首页" />
 
         <ImageButton
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:background="#00000000"
             android:scaleType="centerInside"
-            android:src="@drawable/care"
+            android:src="@drawable/firend"
             android:text="关注" />
 
         <ImageButton
@@ -62,7 +62,7 @@
             android:layout_weight="1"
             android:background="#00000000"
             android:scaleType="centerInside"
-            android:src="@drawable/my"
+            android:src="@drawable/user"
             android:text="我的" />
     </LinearLayout>
 

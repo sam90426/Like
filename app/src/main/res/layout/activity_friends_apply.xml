@@ -14,7 +14,7 @@
 
         <ImageView
             android:id="@+id/friends_apply_back"
-            android:layout_width="50dp"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:src="@drawable/back" />
 

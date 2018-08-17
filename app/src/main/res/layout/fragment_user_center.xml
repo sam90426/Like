@@ -71,23 +71,23 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="25dp"
                     android:src="@drawable/friendsmg" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:text="好友管理" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="23dp"
                     android:src="@drawable/more" />
             </LinearLayout>
 
@@ -102,23 +102,23 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="25dp"
                     android:src="@drawable/account" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:text="账号管理" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="23dp"
                     android:src="@drawable/more" />
             </LinearLayout>
 
@@ -133,23 +133,23 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="25dp"
                     android:src="@drawable/userinfo" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:text="绑定信息" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="23dp"
                     android:src="@drawable/more" />
             </LinearLayout>
 
@@ -164,8 +164,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="25dp"
                     android:src="@drawable/set" />
 
                 <TextView
@@ -173,15 +173,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:text="系统设置" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="23dp"
                     android:src="@drawable/more" />
             </LinearLayout>
 
@@ -196,23 +196,23 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="25dp"
                     android:src="@drawable/aboutus" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:textSize="16sp"
                     android:text="关于我们" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="20dp"
+                    android:layout_weight="2"
+                    android:padding="23dp"
                     android:src="@drawable/more" />
             </LinearLayout>
 

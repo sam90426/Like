@@ -22,7 +22,7 @@
 
         <ImageView
             android:id="@+id/account_back"
-            android:layout_width="50dp"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:src="@drawable/back" />

@@ -43,6 +43,7 @@ public class MyFragment extends AppCompatActivity implements View.OnClickListene
         mFriendbtn.setOnClickListener(this);
         mUserCenterbtn.setOnClickListener(this);
         setDefaultFragment();
+        mIndexbtn.setImageResource(R.drawable.indexed);
     }
 
     private void setDefaultFragment()
@@ -58,7 +59,7 @@ public class MyFragment extends AppCompatActivity implements View.OnClickListene
         FragmentManager fm = getFragmentManager();
         // 开启Fragment事务
         FragmentTransaction transaction = fm.beginTransaction();
-
+        changeView(v);
         switch (v.getId())
         {
             case R.id.btn1:
@@ -110,4 +111,26 @@ public class MyFragment extends AppCompatActivity implements View.OnClickListene
         return super.onKeyDown(keyCode, event);
     }
     //endregion
+
+    private void changeView(View v){
+        mIndexbtn.setImageResource(R.drawable.index);
+        mLikebtn.setImageResource(R.drawable.like);
+        mFriendbtn.setImageResource(R.drawable.firend);
+        mUserCenterbtn.setImageResource(R.drawable.user);
+        switch (v.getId())
+        {
+            case R.id.btn1:
+                mIndexbtn.setImageResource(R.drawable.indexed);
+                break;
+            case R.id.btn4:
+                mUserCenterbtn.setImageResource(R.drawable.usered);
+                break;
+            case R.id.btn2:
+                mLikebtn.setImageResource(R.drawable.likeed);
+                break;
+            case R.id.btn3:
+                mFriendbtn.setImageResource(R.drawable.friended);
+                break;
+        }
+    }
 }

@@ -8,8 +8,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@mipmap/ic_launcher"
         android:layout_weight="2">
+        <ImageView
+            android:id="@+id/like_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
         <TextView
             android:id="@+id/like_hits"
@@ -17,7 +21,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:textColor="#000000"/>
+            android:text="100"
+            android:background="#95CACA"
+            android:textColor="#ffffff"/>
 
         <TextView
             android:id="@+id/like_title"
@@ -25,40 +31,52 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:textColor="#000000" />
+            android:text="adasdas"
+            android:background="#95CACA"
+            android:textColor="#ffffff" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_weight="3"
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/like_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textColor="#000000"
             android:text="2016-12-09" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:orientation="horizontal">
 
-            <Button
+            <ImageButton
                 android:id="@+id/like_zan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:text="赞" />
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/ungood" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/like_comment"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="8dp"
                 android:layout_weight="1"
-                android:text="评" />
+                android:background="#00000000"
+                android:scaleType="centerInside"
+                android:src="@drawable/comments" />
         </LinearLayout>
 
     </LinearLayout>
