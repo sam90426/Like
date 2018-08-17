@@ -26,6 +26,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sam.like.Common.InterfaceUrl;
 import com.sam.like.Common.MyApplication;
 import com.sam.like.Common.SodukuGridView;
@@ -157,9 +158,9 @@ public class CircleAdapter extends BaseAdapter {
             //region 头像
             int size = ScreenUtils.getScreenWidth(context) / 6;
             if (!Logo.isEmpty()) {
-                Picasso.with(context).load(InterfaceUrl.interfaceurl + Logo).resize(size, size).error(R.mipmap.ic_launcher).into(holder.logo);
+                Glide.with(context).load(InterfaceUrl.interfaceurl + Logo).override(size, size).error(R.mipmap.ic_launcher).into(holder.logo);
             } else {
-                Picasso.with(context).load(R.mipmap.ic_launcher).resize(size, size).into(holder.logo);
+                Glide.with(context).load(R.mipmap.ic_launcher).override(size, size).into(holder.logo);
             }
             L.i("Logo:::::", size + "");
             //endregion
