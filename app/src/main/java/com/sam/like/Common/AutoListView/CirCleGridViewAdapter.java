@@ -60,7 +60,8 @@ public class CirCleGridViewAdapter extends BaseAdapter {
         mImageView = (ImageView) convertView.findViewById(R.id.send_circle_gallery_itemimg);
         int size = ScreenUtils.getScreenWidth(context)/4;
         //mImageView.setBackgroundResource(list.get(position));
-        Glide.with(context).load(Uri.parse(list.get(position))).override(size, size).into(mImageView);
+//        Glide.with(context).load(Uri.parse(list.get(position))).override(size, size).into(mImageView);
+        Picasso.with(context).load(Uri.parse(list.get(position))).resize(size, size).into(mImageView);
         //mImageView.setImageURI(Uri.parse(list.get(position)));
 
         return convertView;
