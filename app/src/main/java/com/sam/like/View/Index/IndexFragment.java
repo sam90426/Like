@@ -12,8 +12,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.sam.like.Common.AutoListView.AutoListView;
 import com.sam.like.Common.AutoListView.CircleAdapter;
 import com.sam.like.Common.InterfaceUrl;
@@ -48,6 +50,7 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
     private CircleAdapter adapter;
     private List<String> list = new ArrayList<String>();
     private EditText commentEdit;
+    private ImageView indexBanner;
 
 
     @Override
@@ -59,11 +62,12 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
         lstv = (AutoListView) view.findViewById(R.id.index_listview);
         commentEdit = (EditText) view.findViewById(R.id.index_commentedit);
         commentEdit.setVisibility(View.GONE);
+        indexBanner=(ImageView)view.findViewById(R.id.index_banner);
 
         //region listview为空时显示
         TextView emptyView = new TextView(MyApplication.getInstance());
         emptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
-        emptyView.setText("好友动态没有数据！");
+        emptyView.setText("没有数据！");
         emptyView.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
         emptyView.setVisibility(View.GONE);
         ((ViewGroup) lstv.getParent()).addView(emptyView);
@@ -121,6 +125,12 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
                             try {
                                 JSONObject resultarray = response.getJSONObject("data");
                                 JSONArray listarray = resultarray.getJSONArray("circlelist");
+                                JSONArray indexBannerArr=resultarray.getJSONArray("indexBanner");
+                                if(indexBannerArr.length()>0){
+                                    JSONObject item=indexBannerArr.getJSONObject(0);
+                                    String imgPath=item.getString("picUrl");
+                                    Glide.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + imgPath).error(R.mipmap.ic_launcher).into(indexBanner);
+                                }
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
                                         result.add(listarray.getString(i));
