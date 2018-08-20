@@ -2,7 +2,6 @@ package com.sam.like.View.UserCenter;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +23,8 @@ import com.sam.like.Utils.myokhttp.MyOkHttp;
 import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
 import java.util.LinkedHashMap;
 
 public class UserCenterFragment extends Fragment implements View.OnClickListener {
@@ -62,10 +59,9 @@ public class UserCenterFragment extends Fragment implements View.OnClickListener
         aboutus.setOnClickListener(this);
 
         username.setText((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserName", ""));
-        usersign.setText((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Sign", ""));
-        L.i((String)SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", ""));
-        //userlogo.setImageURI(Uri.parse((String)SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")));
-        Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl+SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")).into(userlogo);
+        usersign.setText(("#" + SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Sign", "") + "#"));
+        L.i((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", ""));
+        Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")).into(userlogo);
         //endregion
 
         LinkedHashMap<String, String> params = new LinkedHashMap<>();
@@ -119,7 +115,7 @@ public class UserCenterFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
         username.setText((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "UserName", ""));
-        usersign.setText((String) SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Sign", ""));
-        Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl+SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")).into(userlogo);
+        usersign.setText(("#" + SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Sign", "") + "#"));
+        Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + SharedPreferencesUtils.getParam(MyApplication.getInstance(), "Logo", "")).into(userlogo);
     }
 }

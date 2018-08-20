@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 app:civ_border_width="1dp"
                 app:civ_border_color="#F4F4F4"
                 android:src="@mipmap/ic_launcher" />
@@ -44,6 +44,7 @@
                 android:id="@+id/usercenter_username"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="#ff00ff"
                 android:layout_weight="2" />
 
             <TextView
