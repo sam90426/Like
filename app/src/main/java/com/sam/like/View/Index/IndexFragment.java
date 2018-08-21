@@ -30,6 +30,7 @@ import com.sam.like.Utils.T;
 import com.sam.like.Utils.myokhttp.MyOkHttp;
 import com.sam.like.Utils.myokhttp.response.JsonResponseHandler;
 import com.sam.like.View.Friend.CircleDetail;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,7 +130,7 @@ public class IndexFragment extends Fragment implements AutoListView.OnRefreshLis
                                 if(indexBannerArr.length()>0){
                                     JSONObject item=indexBannerArr.getJSONObject(0);
                                     String imgPath=item.getString("picUrl");
-                                    Glide.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + imgPath).error(R.mipmap.ic_launcher).into(indexBanner);
+                                    Picasso.with(MyApplication.getInstance()).load(InterfaceUrl.interfaceurl + imgPath).error(R.mipmap.ic_launcher).fit().into(indexBanner);
                                 }
                                 if (listarray.length() > 0) {
                                     for (int i = 0; i < listarray.length(); i++) {
